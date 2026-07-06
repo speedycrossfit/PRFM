@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRFM Training — Performance Console</title>
-<link rel="icon" type="image/png" href="images/favicon-tile-black.png">
-<link rel="apple-touch-icon" href="images/favicon-tile-black.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="style/main.css">
 <meta name="description" content="Stop exercising. Start training. PRFM is remote strength & conditioning coaching built by hand by a real coach — no AI, no templates. Join the waitlist.">
 <!-- Social share preview tags. og:image is a relative path for now — once there's a live
      domain, swap it for the full URL (e.g. https://yourdomain.com/images/hero-athlete.jpg),
@@ -21,6 +16,11 @@
 <meta name="twitter:title" content="PRFM Training — Stop Exercising. Start Training.">
 <meta name="twitter:description" content="Remote strength & conditioning coaching, built by hand by a real coach. No AI, no templates. Join the waitlist.">
 <meta name="twitter:image" content="images/hero-athlete.jpg">
+<link rel="icon" type="image/png" href="images/favicon-tile-black.png">
+<link rel="apple-touch-icon" href="images/favicon-tile-black.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style/main.css">
 </head>
 <body>
 <!--
@@ -160,16 +160,18 @@
   </div>
 </section>
 
-<!-- 03 ORANGE WAITLIST STRIP — email capture. Real <form>, ready to go live:
-     replace the action="YOUR_FORM_ENDPOINT_HERE" below with your Formspree
-     (or Mailchimp/ConvertKit) endpoint — see HANDOFF.md "Wire the Forms".
-     _gotcha is a honeypot spam trap Formspree recognises automatically;
-     leave it hidden, don't remove it. Once you have a thank-you page, add
-     a "_next" hidden input here pointing to its URL (see HANDOFF.md). -->
+<!-- 03 ORANGE WAITLIST STRIP — name + email capture. Wired to the live
+     Formspree endpoint (form xdarbjra). _gotcha is a honeypot spam trap
+     Formspree recognises automatically; leave it hidden, don't remove it.
+     Once you have a thank-you page, add a "_next" hidden input here
+     pointing to its URL (see HANDOFF.md). The PDF is delivered by
+     Formspree's Autoresponse plugin (paid plan required), not by this
+     markup — see HANDOFF.md "Wire the Forms" for setup steps. -->
 <section class="strip">
   <h2>Achieve your goal.</h2>
   <p class="strip-sub">100 waitlist spots · free "PRFM Method" PDF on signup</p>
-  <form class="strip-form" action="YOUR_FORM_ENDPOINT_HERE" method="POST">
+  <form class="strip-form" action="https://formspree.io/f/xdarbjra" method="POST">
+    <input class="input" type="text" name="name" required placeholder="Your name">
     <input class="input" type="email" name="email" required placeholder="you@email.com">
     <input type="hidden" name="_subject" value="New PRFM waitlist signup — Hero Strip">
     <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
@@ -210,7 +212,7 @@
     <div class="step reveal" style="--i:0"><div class="num">01</div><div class="lbl">Tell us your goal</div></div>
     <div class="step reveal" style="--i:1"><div class="num">02</div><div class="lbl">Free consultation call</div></div>
     <div class="step reveal" style="--i:2"><div class="num">03</div><div class="lbl">Choose the right plan</div></div>
-    <div class="step reveal" style="--i:3"><div class="num">04</div><div class="lbl">Start training</div></div>
+    <div class="step reveal" style="--i:3"><div class="num">04</div><div class="lbl">Train — we watch</div></div>
     <div class="step reveal" style="--i:4"><div class="num">05</div><div class="lbl">Progress. Repeat.</div></div>
   </div>
 </section>
@@ -474,8 +476,8 @@
   <div class="blog-dots" id="blog-dots"></div>
 </section>
 
-<!-- 11 FINAL CTA — same real <form> pattern as section 03, POSTing to the
-     same endpoint (see HANDOFF.md "Wire the Forms"). Keep both forms
+<!-- 11 FINAL CTA — same real <form> pattern as section 03 (name + email),
+     wired to the same Formspree endpoint (form xdarbjra). Keep both forms
      pointed at the same action URL if you update one. -->
 <section class="pad grid-bg" id="contact" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
   <img src="images/logo-white.png" alt="PRFM" class="final-mark reveal" style="margin:0 auto 20px;">
@@ -483,7 +485,8 @@
   <span class="tag-pill reveal" style="color:var(--orange); border-color:var(--orange);">[ <span class="spots-count">100</span> SPOTS ONLY — WAITLIST ]</span>
   <h2 class="final-headline reveal">Achieve your goal. Start here.</h2>
   <p class="final-sub reveal" style="margin-left:auto; margin-right:auto;">Free guide. Free consultation call. No commitment until you're ready.</p>
-  <form class="final-form reveal" action="YOUR_FORM_ENDPOINT_HERE" method="POST">
+  <form class="final-form reveal" action="https://formspree.io/f/xdarbjra" method="POST">
+    <input class="input" type="text" name="name" required placeholder="Your name">
     <input class="input" type="email" name="email" required placeholder="you@email.com">
     <input type="hidden" name="_subject" value="New PRFM waitlist signup — Final CTA">
     <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">

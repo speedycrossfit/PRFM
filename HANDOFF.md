@@ -10,6 +10,7 @@
 ```
 prfm-handoff/
 ├── index.html          ← The entire site. One file. Start here.
+├── The PRFM Method - Athlete Mindset.pdf   ← Lead magnet PDF. Sent via Formspree Autoresponse link.
 ├── style/
 │   ├── main.css        ← All styling. Edit here to change colours, fonts, layout.
 │   └── main.js         ← Scroll animations, count-up stats, launch-day button swap.
@@ -43,22 +44,21 @@ prfm-handoff/
 
 ## The One Thing to Do Before Launch: Wire the Forms
 
-Both email capture forms (the orange strip under the hero, and the final CTA section) are fully built and ready. They just need a backend endpoint.
+Both forms (the orange strip under the hero, and the final CTA section) capture **name + email** and are now **wired to Formspree** — `action="https://formspree.io/f/xdarbjra"` on both. Formspree emails Ben every signup and has a dashboard to export them.
 
-Search `index.html` for `YOUR_FORM_ENDPOINT_HERE` — it appears in both forms.
+**Remaining step — sending the PDF automatically (Autoresponse):**
+The site promises a free "PRFM Method" PDF on signup. To have Formspree email that back to the person who just signed up, you need the **Autoresponse plugin**, which sits behind a paid Formspree plan (not the free tier — check current plan names/pricing at [formspree.io/plans](https://formspree.io/plans), as these change).
 
-**Quickest option — Formspree (free, no code):**
-1. Go to [formspree.io](https://formspree.io) and create a free account
-2. Create a new form, copy your endpoint URL (looks like `https://formspree.io/f/abcdefgh`)
-3. Replace both instances of `YOUR_FORM_ENDPOINT_HERE` with that URL
-4. Formspree emails you every signup and has a dashboard to export them
+Formspree's autoresponse sends a text/HTML message you write — it does not attach a real file. So the working setup is:
+1. The PDF — **`The PRFM Method - Athlete Mindset.pdf`** — lives at the root of the repo, alongside `index.html`. Once pushed to GitHub and deployed on Vercel, it's automatically served as a static file at:
+   `https://yourdomain.com/The%20PRFM%20Method%20-%20Athlete%20Mindset.pdf`
+   (spaces in the filename become `%20` in the URL — that's normal and works fine in browsers and email clients; swap `yourdomain.com` for the site's real domain once it's live).
+2. In the Formspree dashboard, upgrade to a plan that includes Autoresponse, open your form → **Plugins → Autoresponse**, and turn it on.
+3. Set the "from" name, subject (e.g. "Your PRFM Method guide"), and message body. Paste the PDF's public URL into the message as a download link/button. Note: per Formspree's own docs, submission field data (like the person's name) can't be dropped into the autoresponse body unless the form is on a custom domain within a Formspree project — keep the message generic ("Hey — here's your guide...") rather than "Hey {{name}}" unless that's set up.
+4. Formspree requires a field literally named `email` to know where to send the autoresponse — both forms already have that.
+5. Test by submitting the form with a real email address and confirming the autoresponse arrives with a working PDF link.
 
-**Other options:**
-- **Mailchimp:** Use their embedded form action URL, add `name="EMAIL"` to the email input (already has `name="email"` — Mailchimp needs uppercase, just change the attribute)
-- **ConvertKit:** Same approach — their form POST URL goes in the `action` attribute
-- **Your own backend:** The forms POST `email` and `_subject` fields. Add whatever fields you need.
-
-Once the endpoint is live, test it by submitting a real email and confirming you receive it.
+Test by submitting a real name + email on the live site and confirming both the notification to Ben and the autoresponse (once set up) arrive.
 
 ---
 
@@ -82,9 +82,9 @@ To go back to waitlist mode, set it to `false` again.
 
 ## Things Not Yet Built (Open Items)
 
-- **Form backend** — see "Wire the Forms" above. The forms are ready; they just need an endpoint.
-- **Live spots counter** — the "100 spots" number is currently static, updated manually. A live counter requires the form backend to be in place first so you know the real count.
-- **Thank-you page / redirect** — after someone submits the waitlist form, they currently see the browser's default behaviour. Add a `_next` hidden input pointing to a thank-you URL once your form service is set up.
+- **PDF delivery** — forms are wired to Formspree and collect name + email, but the actual PDF file still needs to be added to the project and the Formspree Autoresponse plugin (paid plan) still needs to be turned on. See "Wire the Forms" above.
+- **Live spots counter** — the "100 spots" number is currently static, updated manually. A live counter requires tracking real submissions (e.g. via the Formspree dashboard) to know the real count.
+- **Thank-you page / redirect** — after someone submits the waitlist form, they currently see the browser's default behaviour. Add a `_next` hidden input pointing to a thank-you URL once you have one.
 
 ---
 
