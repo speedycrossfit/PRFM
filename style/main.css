@@ -44,6 +44,11 @@
   .waitlist-cta{text-transform:uppercase;}
   .ghost-btn{background:transparent; color:var(--black); border:1px solid rgba(17,17,17,0.3); font-family:'Inter',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.04em; padding:14px 25px; cursor:pointer; border-radius:6px;}
   .ghost-btn:hover{background:rgba(17,17,17,0.05);}
+  .input{padding:13px 16px; border:none; font-family:'IBM Plex Mono',monospace; font-size:13px; min-width:200px; outline:none; border-radius:6px;}
+  /* Spam-trap field for the three email forms — must stay visually hidden but present in the DOM
+     (that's what makes it work as a honeypot), so it's a class, not an inline style, per the
+     "no inline styles" rule below. */
+  .hp-field{position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;}
   .tag-pill{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.04em; padding:5px 10px; border:1px solid currentColor;}
 
   /* =====================================================================
@@ -52,6 +57,15 @@
      button on the right side of the nav.
      ===================================================================== */
   html{scroll-behavior:smooth;}
+  /* The nav bar is position:sticky and sits on top of the page at all
+     scroll positions. Without this, clicking an anchor link (#programmes,
+     #philosophy, #contact) lands the section flush at the very top of the
+     document, so the sticky bar overlaps/covers its first ~70-90px —
+     looks like the link "missed." This offsets the landing spot so the
+     section's actual content clears the bar. #top isn't included here —
+     it's a plain non-sticky marker above the nav bar (see index.html),
+     not a section that needs clearance. */
+  #programmes, #philosophy, #contact{scroll-margin-top:96px;}
   .console-bar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:16px 40px; background:var(--black); border-bottom:1px solid rgba(255,130,16,0.25);}
   .wordmark{font-weight:900; font-size:17px; letter-spacing:-0.02em;}
   .wordmark img{height:20px; display:block;}
@@ -88,7 +102,13 @@
   .headline-line.two{animation-delay:0.55s;}
   .hero-sub{color:var(--gray-on-black); font-size:15px; line-height:1.65; max-width:420px; margin-top:26px; opacity:0; animation:fadein 0.5s ease-out 1.3s forwards;}
   .cta-row{margin-top:36px; opacity:0; animation:fadein 0.5s ease-out 1.5s forwards;}
+  .hero-form{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
   .hero .bracket-btn{padding:15px 26px; animation:ring 3s ease-in-out 2s infinite;}
+  /* Hero form reads as the quick/secondary entry point — deliberately smaller
+     than the orange strip's form below it (the "main" one). Overrides the
+     shared .input and .hero .bracket-btn sizing for this form only. */
+  .hero-form .input{padding:9px 12px; font-size:12px; min-width:130px;}
+  .hero-form .bracket-btn{padding:9px 18px; font-size:12px;}
   @keyframes ring{ 0%,100%{box-shadow:0 0 0 0 rgba(255,130,16,0);} 50%{box-shadow:0 0 0 8px rgba(255,130,16,0.18);} }
   .hero-price{margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gray-on-black); letter-spacing:0.02em;}
   .hero-price .price-orange{color:var(--orange); font-weight:500;}
@@ -132,6 +152,7 @@
   .strip h2{font-weight:900; font-size:clamp(21px,2.8vw,30px); text-transform:uppercase; max-width:520px;}
   .strip-sub{font-size:11px; letter-spacing:0.04em; color:rgba(17,17,17,0.7); font-family:'IBM Plex Mono',monospace; margin-top:0;}
   .strip-form{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:4px;}
+  .strip .input{background:var(--white);}
   .strip-mark{height:20px; display:block; margin-bottom:0;}
 
   /* 07 GUARANTEE modifier — logo becomes a corner badge, headline/subtext go side by side.
@@ -380,7 +401,9 @@
     .quote-photo{width:100%; height:200px;}
     .quote-content{padding:24px 22px;}
     .final-form{flex-direction:column;}
-    .final-form .bracket-btn{width:100%;}
+    .final-form .input, .final-form .bracket-btn{width:100%;}
+    .hero-form{flex-direction:column;}
+    .hero-form .input, .hero-form .bracket-btn{width:100%;}
   }
   /* Small phone: collapse pillars to single column, hide nav links */
   @media (max-width: 480px){

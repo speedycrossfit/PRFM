@@ -124,14 +124,20 @@
      to sections by id (#programmes, #philosophy, #contact). The rightmost
      element is the primary always-visible CTA — currently routes to #contact. -->
 
-<div class="console-bar" id="top">
+<!-- #top is a plain, non-sticky marker — deliberately NOT on .console-bar
+     below. Anchor links can't reliably scroll to elements with
+     position:sticky (the browser sees it as already pinned in place and
+     skips the scroll), so this empty div is the real target for every
+     href="#top" link on the page. -->
+<div id="top"></div>
+<div class="console-bar">
   <div class="wordmark"><img src="images/logo-white.png" alt="PRFM"></div>
   <nav class="nav-links mono">
     <a href="#programmes">Plans</a>
     <a href="#philosophy">Learn</a>
     <a href="#contact">Chat</a>
   </nav>
-  <button type="button" class="engage waitlist-cta" data-launch-text="[ APPLY NOW ]" data-tf-popup="mMQa0Jt5" data-tf-opacity="70" data-tf-iframe-props="title=PRFM Waitlist">Join Waitlist</button>
+  <a href="#contact" class="engage waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
 </div>
 
 <!-- 02 HERO
@@ -148,7 +154,13 @@
     </h1>
     <p class="hero-sub">Performance over aesthetics. A real coach builds your plan — no AI, no template.</p>
     <div class="cta-row">
-      <button type="button" class="bracket-btn waitlist-cta" data-launch-text="[ ENGAGE: START NOW ]" data-tf-popup="mMQa0Jt5" data-tf-opacity="70" data-tf-iframe-props="title=PRFM Waitlist">Join Waitlist</button>
+      <form class="hero-form" action="https://formspree.io/f/xdarbjra" method="POST">
+        <input class="input" type="text" name="name" required placeholder="Your name">
+        <input class="input" type="email" name="email" required placeholder="you@email.com">
+        <input type="hidden" name="_subject" value="New PRFM waitlist signup — Hero">
+        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
+        <button class="bracket-btn waitlist-cta" data-launch-text="[ ENGAGE: START NOW ]" type="submit">Join the Waitlist</button>
+      </form>
       <p class="hero-price">From <span class="price-orange">$89</span> one-time — no subscription. <a href="#programmes">See programmes →</a></p>
       <p class="hero-price" style="margin-top:6px;">Waitlist capped at <span class="price-orange spots-count">100</span> spots.</p>
     </div>
@@ -160,16 +172,22 @@
   </div>
 </section>
 
-<!-- 03 ORANGE WAITLIST STRIP — opens the same Typeform popup as every
-     other "Join Waitlist" button on the page (form ID mMQa0Jt5). See
-     HANDOFF.md "Wire the Forms" for how the Typeform embed works and
-     how to change the form ID. -->
+<!-- 03 ORANGE WAITLIST STRIP — name + email capture. Wired to the live
+     Formspree endpoint (form xdarbjra), same as sections 02 and 11.
+     _gotcha is a honeypot spam trap Formspree recognises automatically;
+     leave it hidden, don't remove it. The PDF is delivered via a link on
+     the Formspree Autoresponse message (paid plan required) — see
+     HANDOFF.md "Wire the Forms" for setup steps. -->
 <section class="strip">
   <h2>Achieve your goal.</h2>
   <p class="strip-sub">100 waitlist spots · free "PRFM Method" PDF on signup</p>
-  <div class="strip-form">
-    <button type="button" class="btn-black waitlist-cta" data-launch-text="[ APPLY NOW ]" data-tf-popup="mMQa0Jt5" data-tf-opacity="70" data-tf-iframe-props="title=PRFM Waitlist">Send me the guide</button>
-  </div>
+  <form class="strip-form" action="https://formspree.io/f/xdarbjra" method="POST">
+    <input class="input" type="text" name="name" required placeholder="Your name">
+    <input class="input" type="email" name="email" required placeholder="you@email.com">
+    <input type="hidden" name="_subject" value="New PRFM waitlist signup — Hero Strip">
+    <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
+    <button class="btn-black waitlist-cta" data-launch-text="[ APPLY NOW ]" type="submit">Send me the guide</button>
+  </form>
 </section>
 
 <!-- 04 PHILOSOPHY -->
@@ -469,18 +487,22 @@
   <div class="blog-dots" id="blog-dots"></div>
 </section>
 
-<!-- 11 FINAL CTA — opens the same Typeform popup as every other "Join
-     Waitlist" button on the page (form ID mMQa0Jt5). Keep this in sync
-     with sections 02/03 if you change the form ID. -->
+<!-- 11 FINAL CTA — same real <form> pattern as sections 02/03 (name +
+     email), wired to the same Formspree endpoint (form xdarbjra). Keep
+     all three in sync if you update one. -->
 <section class="pad grid-bg" id="contact" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
   <img src="images/logo-white.png" alt="PRFM" class="final-mark reveal" style="margin:0 auto 20px;">
   <!-- MANUAL UPDATE: edit the number in .spots-count as waitlist fills. Currently a static placeholder. -->
   <span class="tag-pill reveal" style="color:var(--orange); border-color:var(--orange);">[ <span class="spots-count">100</span> SPOTS ONLY — WAITLIST ]</span>
   <h2 class="final-headline reveal">Achieve your goal. Start here.</h2>
   <p class="final-sub reveal" style="margin-left:auto; margin-right:auto;">Free guide. Free consultation call. No commitment until you're ready.</p>
-  <div class="final-form reveal">
-    <button type="button" class="bracket-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" data-tf-popup="mMQa0Jt5" data-tf-opacity="70" data-tf-iframe-props="title=PRFM Waitlist">Send me the guide</button>
-  </div>
+  <form class="final-form reveal" action="https://formspree.io/f/xdarbjra" method="POST">
+    <input class="input" type="text" name="name" required placeholder="Your name">
+    <input class="input" type="email" name="email" required placeholder="you@email.com">
+    <input type="hidden" name="_subject" value="New PRFM waitlist signup — Final CTA">
+    <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
+    <button class="bracket-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" type="submit">Send me the guide</button>
+  </form>
   <p class="fine-print" style="margin-left:auto; margin-right:auto;">By submitting you'll receive "The PRFM Method" — our free guide — plus occasional emails about your spot. Only <span class="spots-count">100</span> waitlist spots available before launch.</p>
 </section>
 
@@ -490,7 +512,6 @@
   PRFM TRAINING © 2026 · DUNEDIN, NZ — COACHING WORLDWIDE
 </footer>
 
-<script src="//embed.typeform.com/next/embed.js"></script>
 <script src="style/main.js"></script>
 </body>
 </html>
