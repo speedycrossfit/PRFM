@@ -8,7 +8,7 @@
 
      This affects every button/link with class="waitlist-cta" —
      that's every purchase and signup button on the page (nav,
-     hero, orange strip, all 7 programme rows, final CTA). Each
+     hero, orange strip, programme CTAs, final CTA). Each
      one already has its launch-day text pre-written in its
      data-launch-text="..." attribute in the HTML, so nothing
      else needs to be touched.

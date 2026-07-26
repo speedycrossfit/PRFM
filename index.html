@@ -50,7 +50,7 @@
     03 ORANGE STRIP    email capture band under the hero
     04 PHILOSOPHY      "goal first" pillars section (cream bg)
     05 HOW IT WORKS    5-step process row
-    06 PROGRAMME TABLE the 7 programmes, prices, and their CTAs
+    06 PROGRAMME TABLE the programme board, prices, and CTAs
     07 GUARANTEE       orange "it's coached" band
     08 COACH BEN       bio, stats, athlete photo (NOT Ben — see
                        note in that section)
@@ -73,16 +73,13 @@
   HOW TO MAKE COMMON EDITS
   ----------------------------------------------------------------
   • Change a price or programme description → section 06, find the
-    programme by name (Base, Build, Strong, Capacity, Prime, Pro,
-    Custom), edit the text inside <div class="card-detail"> or the
-    <div class="card-price"> block. Layout updates automatically.
+    programme by name (Base, Build, Strong, Capacity, Prime, Pro),
+    edit the text inside <div class="card-detail"> or the price block.
+    Layout updates automatically.
   • Add/remove a programme → copy one whole <div class="prog-card
-    ...">...</div> block (or the .pro one, if adding another hero-style
-    card) and edit its contents. Keep the dark / outline class to match
-    its tier, and give it a grid-column span so row totals still add up
-    to 5 — see the "06 PROGRAMME TABLE" CSS comment for the full rule.
-    Update the numbered <div class="card-num">0X</div> labels afterward
-    so they stay sequential.
+    ...">...</div> block and edit its contents. Keep it inside the
+    right panel (.monthly-cards, .pro-card, or .one-time-cards) so the
+    board layout stays balanced.
   • Change a testimonial → section 09, each <div class="quote">
     block is one testimonial (photo placeholder / stars / quote /
     name / journey line).
@@ -96,7 +93,7 @@
   LAUNCH DAY — SWAPPING ALL "JOIN WAITLIST" BUTTONS
   ----------------------------------------------------------------
   Every purchase/signup button on the page (nav, hero, orange strip,
-  all 7 programme rows, final CTA — 15 buttons total) already carries
+  programme CTAs, final CTA) already carries
   class="waitlist-cta" and a pre-written data-launch-text="..."
   attribute with its launch-day label ("START NOW" / "APPLY NOW").
   To flip ALL of them at once: open the <script> tag near the
@@ -112,7 +109,7 @@
       and "SPOTS ONLY") should be removed or updated once the
       waitlist mechanic is no longer live.
     - Testimonials in section 09 are real but predate the current
-      7-programme structure (see the note in that section) — swap
+      programme structure (see the note in that section) — swap
       in new reviews under the current programme names as they
       come in.
   ================================================================
@@ -228,112 +225,92 @@
   </div>
 </section>
 
-<!-- 06 PROGRAMME TABLE — see the detailed CSS comment for this section
-     (search "06 PROGRAMME TABLE" in <style>) for the full explanation of
-     the card-grid layout (row 1: five equal tiers · row 2: Pro + Custom)
-     before editing. -->
-<section class="on-cream pad" id="programmes">
-  <div class="eyebrow reveal" style="text-align:center;">// CHOOSE YOUR PROGRAMME</div>
-  <h2 class="h2 reveal" style="margin-top:16px; text-align:center;">Seven programmes. One progression.</h2>
-  <p class="body-text reveal" style="max-width:600px; margin:14px auto 0; text-align:center; color:var(--gray-on-cream);">Start with a one-time block, move into a monthly plan built around your goal, or go all-in with Ben personally. Every tier stacks toward the next.</p>
-
-  <div class="prog-tiers reveal-group">
-
-    <!-- TIER 1: Entry — dashed border enclosure, 2-column grid -->
-    <div class="prog-tier-group reveal" style="--i:0">
-      <span class="prog-tier-label">// ENTRY — ONE TIME</span>
-      <div class="tier-entry-grid">
-        <div class="prog-card dark">
-          <div class="card-ribbon">START HERE</div>
-          <div class="card-kicker">ENTRY</div>
-          <div class="card-num">01</div>
-          <div class="card-name">Base</div>
-          <div class="card-detail">4 weeks · 3 sessions/week — foundation building</div>
-          <div class="card-price">$89<span class="price-week">one-time</span></div>
-          <a href="#top" class="bracket-btn waitlist-cta" data-launch-text="[ START NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-        <div class="prog-card dark">
-          <div class="card-kicker">ENTRY</div>
-          <div class="card-num">02</div>
-          <div class="card-name">Build</div>
-          <div class="card-detail">4 weeks · 4 sessions/week — conditioning, strength or muscle focus</div>
-          <div class="card-price">$89<span class="price-week">one-time</span></div>
-          <a href="#top" class="bracket-btn waitlist-cta" data-launch-text="[ START NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TIER 2: Pick your goal — dashed border enclosure, 3-column grid -->
-    <div class="prog-tier-group reveal" style="--i:1">
-      <span class="prog-tier-label">// PICK YOUR GOAL — $149/MO</span>
-      <div class="tier-goals-grid">
-        <div class="prog-card outline">
-          <div class="card-kicker">PICK YOUR GOAL</div>
-          <div class="card-num">03</div>
-          <div class="card-name">Strong</div>
-          <div class="card-detail">Barbell strength &amp; bodyweight mastery</div>
-          <div class="card-price">$149<span class="price-week">/mo · $35/wk</span></div>
-          <a href="#top" class="ghost-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-        <div class="prog-card outline">
-          <div class="card-kicker">PICK YOUR GOAL</div>
-          <div class="card-num">04</div>
-          <div class="card-name">Capacity</div>
-          <div class="card-detail">Aerobic capacity &amp; endurance — crush any endurance event</div>
-          <div class="card-price">$149<span class="price-week">/mo · $35/wk</span></div>
-          <a href="#top" class="ghost-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-        <div class="prog-card outline">
-          <div class="card-kicker">PICK YOUR GOAL</div>
-          <div class="card-num">05</div>
-          <div class="card-name">Prime</div>
-          <div class="card-detail">Full body S&amp;C — the most well-rounded athlete programme</div>
-          <div class="card-price">$149<span class="price-week">/mo · $35/wk</span></div>
-          <a href="#top" class="ghost-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TIER 3: All-access + Private — no dashed wrapper; Pro's solid border is the signal -->
-    <div class="prog-tier-group tier-access reveal" style="--i:2">
-      <div class="tier-access-grid">
-        <div class="prog-card pro">
-          <div class="card-ribbon wide">RECOMMENDED</div>
-          <div class="pro-copy">
-            <div class="card-kicker">ALL-ACCESS</div>
-            <div class="card-num">06</div>
-            <div class="card-name">Pro</div>
-            <div class="card-detail">Full access to Strong, Capacity AND Prime — train all three, switch anytime.</div>
-            <div class="pro-value">Strong + Capacity + Prime — $70/mo less than buying all three</div>
-          </div>
-          <div class="pro-order">
-            <div class="card-price">$219<span class="price-week">/mo · $55/wk</span></div>
-            <a href="#top" class="bracket-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-          </div>
-        </div>
-        <div class="prog-card dark">
-          <div class="card-kicker">PRIVATE · 10 MAX</div>
-          <div class="card-num">07</div>
-          <div class="card-name">Custom</div>
-          <div class="card-detail">Fully bespoke plan · personalised nutrition &amp; lifestyle guide · full access to Ben</div>
-          <div class="card-price">$529<span class="price-week">/mo · $125/wk</span></div>
-          <a href="#top" class="bracket-btn waitlist-cta" data-launch-text="[ APPLY NOW ]" style="text-decoration:none; display:inline-block;">Join Waitlist</a>
-        </div>
-      </div>
-    </div>
-
+<!-- 06 PROGRAMME TABLE — visual console inspired by the reference board:
+     three monthly programmes, one featured Pro card, and two one-time
+     purchase blocks. -->
+<section class="programmes-console pad" id="programmes">
+  <div class="programmes-heading reveal">
+    <div class="eyebrow">CONCEPT 08</div>
+    <h2 class="h2">5 programs. 1 system. <span>Unlimited potential.</span></h2>
+    <p class="body-text">Whether you're starting out or chasing more, there's a program for you.</p>
   </div>
 
-  <div class="progress-path reveal">
-    <span class="node">Base</span>
-    <span class="arrow">→</span>
-    <span class="node">Build</span>
-    <span class="arrow">→</span>
-    <span class="node">Strong / Capacity / Prime</span>
-    <span class="arrow">→</span>
-    <span class="node">Pro</span>
-    <span class="arrow">→</span>
-    <span class="node">Custom</span>
+  <div class="programmes-layout reveal-group">
+    <div class="monthly-panel reveal" style="--i:0">
+      <div class="programme-lane-label">Subscription monthly</div>
+      <div class="monthly-cards">
+        <div class="prog-card prog-card-white">
+          <div class="programme-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18v12M16 14v20M32 14v20M38 18v12M16 24h16"/></svg>
+          </div>
+          <div class="card-name">PRFM Strong</div>
+          <div class="card-detail">Barbell strength &amp; bodyweight mastery</div>
+          <div class="card-price">$149 <span class="price-month">/mo</span><span class="price-week">$35 /wk</span></div>
+          <a href="#top" class="programme-btn waitlist-cta" data-launch-text="[ APPLY NOW ]">Join Waitlist</a>
+        </div>
+
+        <div class="prog-card prog-card-white">
+          <div class="programme-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 38s-14-8.5-14-18a7 7 0 0 1 12-5 7 7 0 0 1 12 5c0 9.5-10 16-10 18Z"/><path d="M14 25h7l3-7 4 11 3-4h3"/></svg>
+          </div>
+          <div class="card-name">PRFM Capacity</div>
+          <div class="card-detail">Aerobic capacity &amp; endurance — crush any endurance event</div>
+          <div class="card-price">$149 <span class="price-month">/mo</span><span class="price-week">$35 /wk</span></div>
+          <a href="#top" class="programme-btn waitlist-cta" data-launch-text="[ APPLY NOW ]">Join Waitlist</a>
+        </div>
+
+        <div class="prog-card prog-card-white">
+          <div class="programme-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 11a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M27 20l-7 6 8 4 7 8M20 26l-5 10M28 30l4-8 7 3"/></svg>
+          </div>
+          <div class="card-name">PRFM Prime</div>
+          <div class="card-detail">Full body S&amp;C — the most well-rounded athlete programme</div>
+          <div class="card-price">$149 <span class="price-month">/mo</span><span class="price-week">$35 /wk</span></div>
+          <a href="#top" class="programme-btn waitlist-cta" data-launch-text="[ APPLY NOW ]">Join Waitlist</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-card prog-card-white pro-card reveal" style="--i:1">
+      <div class="best-value">Best value</div>
+      <div class="pro-title">PRFM <span>Pro</span></div>
+      <div class="pro-sub">All access to<br>Strong, Capacity &amp; Prime</div>
+      <div class="pro-icons">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18v12M16 14v20M32 14v20M38 18v12M16 24h16"/></svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 38s-14-8.5-14-18a7 7 0 0 1 12-5 7 7 0 0 1 12 5c0 9.5-10 16-10 18Z"/><path d="M14 25h7l3-7 4 11 3-4h3"/></svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 11a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M27 20l-7 6 8 4 7 8M20 26l-5 10M28 30l4-8 7 3"/></svg>
+      </div>
+      <div class="card-price pro-price">$219 <span class="price-month">/mo</span><span class="price-week">$55 /wk</span></div>
+      <a href="#top" class="bracket-btn waitlist-cta" data-launch-text="[ APPLY NOW ]">Join Waitlist</a>
+      <div class="pro-saving">Save $70/mo<br><span>compared to buying all three</span></div>
+    </div>
+
+    <div class="one-time-panel reveal" style="--i:2">
+      <div class="programme-lane-label">One time purchase</div>
+      <div class="one-time-cards">
+        <div class="prog-card prog-card-white compact-card">
+          <div class="programme-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8 8 16l16 8 16-8-16-8Z"/><path d="M12 24l12 6 12-6M12 32l12 6 12-6"/></svg>
+          </div>
+          <div class="compact-copy">
+            <div class="card-name">PRFM Base</div>
+            <div class="card-detail">4 weeks · 3 sessions/week<br>Foundation building</div>
+          </div>
+          <div class="compact-price">$89<span>one-time</span></div>
+        </div>
+
+        <div class="prog-card prog-card-white compact-card">
+          <div class="programme-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18v12M16 14v20M32 14v20M38 18v12M16 24h16"/></svg>
+          </div>
+          <div class="compact-copy">
+            <div class="card-name">PRFM Build</div>
+            <div class="card-detail">4 weeks · 4 sessions/week<br>Conditioning, strength or muscle focus</div>
+          </div>
+          <div class="compact-price">$89<span>one-time</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
