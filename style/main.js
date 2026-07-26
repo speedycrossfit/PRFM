@@ -45,7 +45,7 @@
         cur = Math.min(target, cur + step);
         el.textContent = cur >= target ? (target + suffix) : cur;
         if (cur >= target) clearInterval(t);
-      }, 40);
+      }, 70);
       cio.unobserve(el);
     });
   }, { threshold: 0.4 });

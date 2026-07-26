@@ -234,7 +234,7 @@
   .prog-card-white{
     background:var(--white);
     color:var(--black);
-    border:1px solid rgba(255,130,16,0.22);
+    border:1px solid var(--orange);
     box-shadow:0 18px 42px rgba(0,0,0,0.24);
   }
   .programme-icon{height:38px; display:flex; align-items:center; justify-content:center; color:var(--orange); margin:0 0 6px;}
@@ -254,8 +254,8 @@
   .monthly-cards .card-price{text-align:center;}
   .card-detail{font-size:13px; line-height:1.45; color:rgba(17,17,17,0.62); flex:1;}
   .card-price{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:25px; margin-top:8px;}
-  .price-month{font-size:13px; font-weight:400;}
-  .price-week{display:block; font-size:11px; font-weight:400; color:rgba(17,17,17,0.56); margin-top:5px;}
+  .price-unit{font-size:13px; font-weight:400;}
+  .price-secondary{display:block; font-size:11px; font-weight:400; color:rgba(17,17,17,0.56); margin-top:5px;}
   .programme-btn{
     align-self:center;
     display:inline-flex;
