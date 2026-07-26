@@ -273,6 +273,10 @@
     text-decoration:none;
   }
   .programme-btn:hover{border-color:var(--orange); color:var(--orange);}
+  @keyframes proCardPulse{
+    0%,100%{box-shadow:0 0 0 1px rgba(255,130,16,0.25), 0 24px 58px rgba(0,0,0,0.28), 0 0 0 0 rgba(255,130,16,0.18);}
+    50%{box-shadow:0 0 0 2px rgba(255,130,16,0.72), 0 30px 68px rgba(0,0,0,0.34), 0 0 22px 4px rgba(255,130,16,0.24);}
+  }
 
   .pro-card{
     align-items:center;
@@ -282,6 +286,16 @@
     padding:30px 26px;
     border-color:var(--orange);
     box-shadow:0 0 0 1px rgba(255,130,16,0.2), 0 24px 58px rgba(0,0,0,0.28);
+    transform-origin:center;
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    will-change:transform;
+  }
+  .pro-card:hover,
+  .pro-card:focus-within{
+    border-color:rgba(255,130,16,0.9);
+    transform:scale(1.025);
+    z-index:2;
+    animation:proCardPulse 1.45s ease-in-out infinite;
   }
   .best-value,
   .pro-saving{
@@ -307,6 +321,15 @@
   .compact-card .card-detail{margin-top:4px; flex:none;}
   .compact-price{font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:700; text-align:right; white-space:nowrap;}
   .compact-price span{display:block; margin-top:4px; font-size:10px; font-weight:400; text-transform:uppercase; color:rgba(17,17,17,0.58);}
+  @media (prefers-reduced-motion: reduce){
+    .pro-card{transition:none; will-change:auto;}
+    .pro-card:hover,
+    .pro-card:focus-within{
+      animation:none;
+      transform:none;
+      box-shadow:0 0 0 2px rgba(255,130,16,0.72), 0 24px 58px rgba(0,0,0,0.28);
+    }
+  }
 
   /* Blog carousel */
   .blog-section{padding:88px 56px; background:var(--black); border-bottom:1px solid rgba(255,130,16,0.15);}
