@@ -1,0 +1,8 @@
+/* Opt-in grouped session lists, matching the approved Capacity previews. */
+.program-session-warmup { min-height: 48px; padding-block: 12px; border-top: 1px solid var(--line-light); font-size: 0.95rem; }
+.program-session-part { margin-top: 24px; }
+.program-session-part h4 { margin-bottom: 12px; font-family: "Inter", sans-serif; font-size: 0.72rem; line-height: 1.6; text-transform: uppercase; color: var(--blue-on-dark); }
+
+@media (max-width: 760px) {
+  .program-session-warmup { font-size: 0.9rem; }
+}

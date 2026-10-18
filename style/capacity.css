@@ -1,0 +1,29 @@
+/* Capacity-only additions keep the approved Strong template unchanged. */
+.capacity-page .program-hero-photo { object-position: 50% 90%; }
+.capacity-page .capacity-zones { margin-top: 36px; }
+.capacity-page .capacity-zone-scale {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  list-style: none;
+}
+.capacity-page .capacity-zone-scale li { border-top: 4px solid #c9cdd3; padding: 14px 12px 10px 0; }
+.capacity-page .capacity-zone-scale li:nth-child(2) { border-color: #989fa9; }
+.capacity-page .capacity-zone-scale li:nth-child(3) { border-color: #626b79; }
+.capacity-page .capacity-zone-scale li:nth-child(4) { border-color: #36557e; }
+.capacity-page .capacity-zone-scale li:nth-child(5) { border-color: var(--blue); }
+.capacity-page .capacity-zone-scale span { display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--muted-dark); }
+.capacity-page .capacity-zone-scale strong { display: block; margin-top: 6px; font-size: 0.9rem; line-height: 1.4; }
+.capacity-page .capacity-zone-caption { margin-top: 14px; font-size: 0.9rem; font-weight: 700; }
+.capacity-page .capacity-warmup { min-height: 48px; padding-block: 12px; border-top: 1px solid var(--line-light); font-size: 0.95rem; }
+.capacity-page .capacity-session-part { margin-top: 24px; }
+.capacity-page .capacity-session-part h4 { margin-bottom: 12px; font-family: "Inter", sans-serif; font-size: 0.72rem; line-height: 1.6; text-transform: uppercase; color: var(--blue-on-dark); }
+.capacity-page .capacity-session-detail { margin: -4px 0 12px; font-size: 0.8rem; font-weight: 700; color: var(--muted-light); }
+
+@media (max-width: 760px) {
+  .capacity-page .program-hero::after { background: linear-gradient(180deg, rgba(13,13,13,0.48), rgba(13,13,13,0.58) 30%, rgba(13,13,13,0.72) 70%, rgba(13,13,13,0.88)); }
+  .capacity-page .capacity-zone-scale { grid-template-columns: 1fr; gap: 0; }
+  .capacity-page .capacity-zone-scale li { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: baseline; gap: 16px; border-top: 0; border-left: 4px solid #c9cdd3; border-bottom: 1px solid var(--line-dark); padding: 12px 16px; }
+  .capacity-page .capacity-zone-scale strong { margin: 0; }
+  .capacity-page .capacity-warmup { font-size: 0.9rem; }
+}

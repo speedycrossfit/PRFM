@@ -1,0 +1,33 @@
+/* Opt-in delivery panel and top-aligned program demonstration layout. */
+.program-difference-layout-top { align-items: start; }
+.program-ongoing {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  margin-top: 40px;
+  padding: 28px 32px;
+  border-block: 1px solid var(--line-dark);
+  border-left: 3px solid var(--blue);
+  background: var(--white);
+  text-align: left;
+}
+.program-ongoing .section-label {
+  margin-bottom: 12px;
+}
+.program-ongoing h3 {
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+.program-ongoing-copy {
+  margin: 0;
+  color: var(--muted-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .program-ongoing { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 32px; padding: 24px; }
+  .program-ongoing h3 { font-size: 1.5rem; }
+}

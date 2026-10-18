@@ -1,0 +1,9 @@
+.DS_Store
+.vercel/
+.env
+.env.*
+node_modules/
+public/
+*.zip
+*.sb-*
+*.log

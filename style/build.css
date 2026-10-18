@@ -1,0 +1,9 @@
+.build-page .program-hero-photo { object-position: 50% top; }
+.build-pathway-copy { color: var(--muted-light); }
+.build-next-links { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 12px; }
+
+@media (max-width: 900px) {
+  .build-page .program-hero-photo { object-position: 45% top; }
+  .build-page .program-hero::after { background: linear-gradient(180deg, rgba(13,13,13,0.03), rgba(13,13,13,0.08) 20%, rgba(13,13,13,0.95) 43%, #0d0d0d 56%); }
+  .build-page .program-hero-inner { padding-top: clamp(190px, 63vw, 420px); }
+}
