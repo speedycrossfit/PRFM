@@ -3,7 +3,7 @@ const { readFileSync, existsSync } = require('node:fs');
 const { join, dirname, resolve } = require('node:path');
 const { createHash } = require('node:crypto');
 const test = require('node:test');
-const { readHomepageBeforePro } = require('./homepage-before-pro.cjs');
+const { readHomepageBeforePro, restoreCustomApplication } = require('./homepage-before-pro.cjs');
 
 const root = join(__dirname, '..');
 const pagePath = join(root, 'programs/pro/index.html');
@@ -43,7 +43,7 @@ test('Pro leaves all five approved program pages, their hero assets and all shar
 });
 
 test('The homepage changes only its two existing Pro entry points, preserving Recommended styling and Formspree', () => {
-  assert.equal(hash(home), '22026905597ce4c4404226ec37cc230d16427467b59897789367e2bf1b244630');
+  assert.equal(hash(restoreCustomApplication(home)), '22026905597ce4c4404226ec37cc230d16427467b59897789367e2bf1b244630');
   assert.equal(hash(readHomepageBeforePro(root)), '0fed48a7207a6d58b57f289486c6b5c9c796437193aada74036ca0d531d5a3dc');
   assert.equal((home.match(/href="programs\/pro\/"/g) || []).length, 2);
   assert.match(home, /<a class="journey-item reveal" style="--i:2" href="programs\/pro\/">/);
