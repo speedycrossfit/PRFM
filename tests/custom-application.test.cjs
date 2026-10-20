@@ -7,7 +7,7 @@ const { restoreCustomApplication } = require('./homepage-before-pro.cjs');
 
 const root = join(__dirname, '..');
 const home = readFileSync(join(root, 'index.html'), 'utf8');
-const application = '<a class="button secondary custom-application" href="https://form.typeform.com/to/Pr2IzxhM" target="_blank" rel="noopener noreferrer">Apply for coaching</a>';
+const application = '<a class="button primary custom-application" href="https://form.typeform.com/to/Pr2IzxhM" target="_blank" rel="noopener noreferrer">Apply for coaching</a>';
 
 test('The Custom application is an enabled, safely isolated Typeform link with unchanged wording', () => {
   const custom = home.match(/<section[^>]*id="custom"[\s\S]*?<\/section>/)[0];
@@ -23,7 +23,6 @@ test('Only the Custom application markup and its appearance-preserving styleshee
     assert.doesNotMatch(readFileSync(join(root, 'programs', name, 'index.html'), 'utf8'), /form\.typeform\.com|custom-application\.css/);
   }
   const css = readFileSync(join(root, 'style/custom-application.css'), 'utf8');
-  assert.match(css, /background-color: rgba\(239, 239, 239, 0\.3\); opacity: 0\.6;/);
-  assert.match(css, /:hover,[\s\S]*:focus-visible \{ background-color: var\(--white\); \}/);
-  assert.doesNotMatch(css, /font|padding|margin|width|height|animation|transition/);
+  assert.match(css, /display: flex; margin-top: 16px; min-height: 44px; font-size: 0\.85rem;/);
+  assert.doesNotMatch(css, /background|color|opacity|animation|transition/);
 });
