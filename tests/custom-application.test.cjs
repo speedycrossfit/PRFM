@@ -14,7 +14,7 @@ test('The Custom application is an enabled, safely isolated Typeform link with u
   assert.ok(custom.includes(application));
   assert.equal(home.split(application).length - 1, 1);
   assert.doesNotMatch(custom, /<button[^>]*disabled|aria-disabled|onclick=/);
-  assert.match(custom, /class="button primary waitlist-cta" href="#waitlist"/);
+  assert.doesNotMatch(custom, /waitlist-cta|href="#waitlist"|Applications open soon\./);
 });
 
 test('Only the Custom application markup and its appearance-preserving stylesheet change the homepage', () => {
