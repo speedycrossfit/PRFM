@@ -3,7 +3,7 @@ const { createHash } = require('node:crypto');
 const { readFileSync, readdirSync } = require('node:fs');
 const { join } = require('node:path');
 const test = require('node:test');
-const { restoreCustomApplication } = require('./homepage-before-pro.cjs');
+const { restoreCustomApplication, restoreSectionTwo } = require('./homepage-before-pro.cjs');
 
 const root = join(__dirname, '..');
 const home = readFileSync(join(root, 'index.html'), 'utf8');
@@ -18,7 +18,7 @@ test('The Custom application is an enabled, safely isolated Typeform link with u
 });
 
 test('Only the Custom application markup and its appearance-preserving stylesheet change the homepage', () => {
-  assert.equal(createHash('sha256').update(restoreCustomApplication(home)).digest('hex'), '22026905597ce4c4404226ec37cc230d16427467b59897789367e2bf1b244630');
+  assert.equal(createHash('sha256').update(restoreCustomApplication(restoreSectionTwo(home))).digest('hex'), '22026905597ce4c4404226ec37cc230d16427467b59897789367e2bf1b244630');
   for (const name of readdirSync(join(root, 'programs'))) {
     assert.doesNotMatch(readFileSync(join(root, 'programs', name, 'index.html'), 'utf8'), /form\.typeform\.com|custom-application\.css/);
   }

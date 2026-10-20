@@ -1,0 +1,7 @@
+.principles-headline .tagline-rotator { color: var(--blue); }
+.principles-headline .tagline-word-measure,
+.principles-headline .tagline-word-current,
+.principles-headline .tagline-word-next { text-align: center; }
+.principles-headline .tagline-word-measure::after,
+.principles-headline .tagline-word-current::after,
+.principles-headline .tagline-word-next::after { color: inherit; }

@@ -18,7 +18,7 @@ test('Version 5 preserves photo order, pre-launch form and program copy while ap
     assert.ok(existsSync(join(__dirname, '..', slide.small)));
   }
   assert.deepEqual(JSON.parse(html.match(/data-tagline-words='([^']+)'/)[1]), ['HUMANS', 'ATHLETES', 'PEOPLE']);
-  assert.match(html, /Stop exercising\. Start training\. Set a goal, follow a plan, and make every session count\./);
+  assert.match(html, /Find and follow a plan that is right for you, make every session count\./);
   assert.match(html, /Build your foundations, follow a structured plan, or get access to the complete training system\./);
   assert.match(html, /Four-week programs designed to build a strong foundation, develop consistency and create momentum in your training\./);
   assert.equal((html.match(/One-time program/g) || []).length, 2);
@@ -196,8 +196,7 @@ test('enabling reduced motion completes an in-progress journey and prevents repl
   assert.equal(journey.activated(), 5);
 });
 
-function tagline(env) {
-  const words = ['HUMANS', 'ATHLETES', 'PEOPLE'];
+function tagline(env, words = ['HUMANS', 'ATHLETES', 'PEOPLE']) {
   const current = { textContent: words[0] };
   const next = { textContent: '' };
   const root = {
@@ -293,6 +292,38 @@ test('tagline is static with reduced motion and pauses off-screen or in hidden t
   env.preference.matches = true;
   env.preference.change();
   assert.equal(t.current.textContent, 'HUMANS');
+});
+
+test('Section 2 reuses the same 2.5-second fade in PEOPLE, HUMANS, ATHLETES order', () => {
+  const env = environment();
+  const section = html.match(/<section class="section-light principles">[\s\S]*?<\/section>/)[0];
+  const words = JSON.parse(section.match(/data-tagline-words='([^']+)'/)[1]);
+  const t = tagline(env, words);
+  assert.deepEqual(words, ['PEOPLE', 'HUMANS', 'ATHLETES']);
+  assert.equal(t.current.textContent, 'PEOPLE');
+  for (const word of ['HUMANS', 'ATHLETES', 'PEOPLE']) {
+    env.advance(2499);
+    assert.equal(t.next.textContent, word);
+    env.advance(1);
+    assert.equal(t.current.textContent, word);
+  }
+});
+
+test('Section 2 remains static with reduced motion and pauses off-screen', () => {
+  const env = environment({ reduced: true });
+  const t = tagline(env, ['PEOPLE', 'HUMANS', 'ATHLETES']);
+  env.advance(10000);
+  assert.equal(t.current.textContent, 'PEOPLE');
+  env.preference.matches = false;
+  env.preference.change();
+  env.advance(2500);
+  assert.equal(t.current.textContent, 'HUMANS');
+  env.observers.at(-1)([{ isIntersecting: false }]);
+  env.advance(10000);
+  assert.equal(t.current.textContent, 'HUMANS');
+  env.preference.matches = true;
+  env.preference.change();
+  assert.equal(t.current.textContent, 'PEOPLE');
 });
 
 test('all three hero animations react together to live reduced-motion changes', () => {
