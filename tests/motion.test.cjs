@@ -18,7 +18,7 @@ test('Version 5 preserves photo order, pre-launch form and program copy while ap
     assert.ok(existsSync(join(__dirname, '..', slide.small)));
   }
   assert.deepEqual(JSON.parse(html.match(/data-tagline-words='([^']+)'/)[1]), ['HUMANS', 'ATHLETES', 'PEOPLE']);
-  assert.match(html, /Find and follow a plan that is right for you, make every session count\./);
+  assert.match(html, /Find and follow a plan that is right for you\. Make every session count\./);
   assert.match(html, /Build your foundations, follow a structured plan, or get access to the complete training system\./);
   assert.match(html, /Four-week programs designed to build a strong foundation, develop consistency and create momentum in your training\./);
   assert.equal((html.match(/One-time program/g) || []).length, 2);

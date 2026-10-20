@@ -11,7 +11,7 @@ const home = readFileSync(join(root, 'index.html'), 'utf8');
 test('Only the requested Section 2 headline, sentence and scoped stylesheet change the approved homepage', () => {
   assert.equal(createHash('sha256').update(restoreSectionTwo(home)).digest('hex'), 'f5a374d18c14a36df58fd402cbfc2077804710bdae897a76fe586f2a9be247ff');
   const section = home.match(/<section class="section-light principles">[\s\S]*?<\/section>/)[0];
-  assert.match(section, /<p>Find and follow a plan that is right for you, make every session count\.<\/p>/);
+  assert.match(section, /<p>Find and follow a plan that is right for you\. Make every session count\.<\/p>/);
   assert.match(section, /class="sr-only">Serious programming for everyday people, humans and athletes\./);
   assert.match(section, /aria-hidden="true">Serious programming for everyday/);
   assert.match(section, /class="tagline-word-measure">ATHLETES<\/span>/);

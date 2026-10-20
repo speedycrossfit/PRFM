@@ -5,7 +5,7 @@ function restoreSectionTwo(html) {
   return html
     .replace('  <link rel="stylesheet" href="style/principles.css?v=1">\n', '')
     .replace('<h2 class="principles-headline"><span class="sr-only">Serious programming for everyday people, humans and athletes.</span><span aria-hidden="true">Serious programming for everyday <span class="tagline-ending"><span class="tagline-rotator" data-tagline-rotator data-tagline-words=\'["PEOPLE","HUMANS","ATHLETES"]\'><span class="tagline-word-measure">ATHLETES</span><span class="tagline-word-current">PEOPLE</span><span class="tagline-word-next"></span></span></span></span></h2>', '<h2>Serious programming for everyday athletes.</h2>')
-    .replace('<p>Find and follow a plan that is right for you, make every session count.</p>', '<p>Stop exercising. Start training. Set a goal, follow a plan, and make every session count.</p>');
+    .replace('<p>Find and follow a plan that is right for you. Make every session count.</p>', '<p>Stop exercising. Start training. Set a goal, follow a plan, and make every session count.</p>');
 }
 
 function restoreCustomApplication(html) {
