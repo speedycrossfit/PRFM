@@ -33,7 +33,7 @@
       control.checked = consent && expires > Date.now() && !privacySignal();
       control.disabled = privacySignal();
     });
-    let message = consent ? 'Advertising tracking on. Uncheck to withdraw permission.' : 'Advertising tracking off.';
+    let message = consent ? 'Advertising tracking on. Uncheck to opt out.' : 'Advertising tracking off.';
     if (!production) message = 'Advertising tracking is disabled on this preview.';
     if (foreignPixel || failed) message = 'Advertising tracking unavailable. Your website and forms still work.';
     if (!safeQuery) message = 'Advertising tracking off on this URL to protect unexpected query information.';
@@ -49,15 +49,23 @@
     }));
   }
 
-  function readChoice() {
+  function readChoice(allowDefault = true) {
     try {
-      const choice = JSON.parse(localStorage.getItem(key));
+      const saved = localStorage.getItem(key);
+      if (saved === null && allowDefault) {
+        return { granted: true, expires: Date.now() + config.consentDays * 86400000 };
+      }
+      const choice = JSON.parse(saved);
+      // Preserve explicit opt-outs, including choices saved by the previous opt-in version.
+      if (choice && choice.version === 1 && choice.granted === false) {
+        return { granted: false, expires: 0 };
+      }
       if (choice && choice.version === 1 && typeof choice.granted === 'boolean' &&
           Number.isFinite(choice.expires) && choice.expires > Date.now() &&
           choice.expires <= Date.now() + config.consentDays * 86400000) {
         return choice;
       }
-    } catch (_) { /* Storage may be unavailable; default to no tracking. */ }
+    } catch (_) { /* Do not default on if an existing opt-out cannot be read reliably. */ }
     return { granted: false, expires: 0 };
   }
 
@@ -87,7 +95,7 @@
       return;
     }
     initialized = true;
-    // Official Meta base-code queue, created only after explicit permission.
+    // Meta's SDK gate is technical; a default-on preference is not evidence of legal consent.
     const fbq = window.fbq = function () {
       fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
     };
@@ -135,7 +143,7 @@
     const expiry = Date.now() + config.consentDays * 86400000;
     try {
       localStorage.setItem(key, JSON.stringify({ version: 1, granted: granted === true, expires: expiry }));
-    } catch (_) { /* Permission lasts for this page only if storage is blocked. */ }
+    } catch (_) { /* A changed preference lasts for this page only if storage is blocked. */ }
     apply(granted, expiry);
   }
 
@@ -156,7 +164,7 @@
   controls.forEach(control => control.addEventListener('change', () => changeChoice(control.checked)));
   window.addEventListener('storage', event => {
     if (event.key !== key && event.key !== null) return;
-    const choice = readChoice();
+    const choice = readChoice(false);
     apply(choice.granted, choice.expires);
   });
   function refresh() {

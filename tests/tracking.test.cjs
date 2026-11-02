@@ -49,8 +49,8 @@ function harness(options = {}) {
   };
 }
 
-test('No Meta script, queue or events exist before explicit consent', () => {
-  const app = harness();
+test('An existing opt-out prevents all Meta scripts and events on arrival', () => {
+  const app = harness({ stored: JSON.stringify({ version: 1, granted: false, expires: Date.now() + 86400000 }) });
   assert.equal(app.scripts.length, 0);
   assert.equal(app.window.fbq, undefined);
   assert.equal(app.control.checked, false);
@@ -59,7 +59,27 @@ test('No Meta script, queue or events exist before explicit consent', () => {
   assert.deepEqual(app.events(), []);
 });
 
-test('Opt-in loads official SDK once, disables automatic configuration and emits one standard PageView', () => {
+test('A new visitor defaults to tracking without recording default behaviour as affirmative consent', () => {
+  const app = harness();
+  assert.equal(app.control.checked, true);
+  assert.equal(app.scripts.length, 1);
+  assert.equal(app.values.has(consentKey), false);
+  app.load();
+  assert.deepEqual(app.events(), ['PageView']);
+});
+
+test('Opting out persists across pages and is not silently reversed when its old expiry passes', () => {
+  const app = harness();
+  app.choose(false);
+  const next = harness({ stored: app.values.get(consentKey) });
+  assert.equal(next.control.checked, false);
+  assert.equal(next.scripts.length, 0);
+  const old = harness({ stored: JSON.stringify({ version: 1, granted: false, expires: 1 }) });
+  assert.equal(old.control.checked, false);
+  assert.equal(old.scripts.length, 0);
+});
+
+test('Enabled tracking loads official SDK once, disables automatic configuration and emits one standard PageView', () => {
   const app = harness();
   app.choose(true);
   assert.equal(app.scripts.length, 1);
@@ -111,8 +131,8 @@ test('Withdrawal cancels pending events, revokes Meta permission and invalidates
   assert.deepEqual(app.events(), ['PageView']);
 });
 
-test('Unconsented submissions are not replayed when someone opts in later', () => {
-  const app = harness();
+test('Opted-out submissions are not replayed when someone enables tracking later', () => {
+  const app = harness({ stored: JSON.stringify({ version: 1, granted: false, expires: 0 }) });
   const token = app.window.PRFMTracking.beginSubmission();
   app.choose(true);
   app.load();
@@ -165,11 +185,11 @@ test('Cross-tab withdrawal and SDK load failure do not break forms or send event
   assert.match(failed.status.textContent, /unavailable/);
 });
 
-test('Shared build injection preserves original markup and adds opt-in only once at the correct relative paths', () => {
+test('Shared build injection preserves original markup and adds the tracking preference once at the correct paths', () => {
   const source = '<html><head></head><body><main>Approved content</main><footer></footer></body></html>';
   for (const [path, base] of [['index.html', ''], ['programs/strong/index.html', '../../'], ['privacy/index.html', '../']]) {
     const result = integratePage(source, path);
-    assert.ok(result.includes(`src="${base}style/tracking.js?v=1"`));
+    assert.ok(result.includes(`src="${base}style/tracking.js?v=2"`));
     assert.ok(result.includes(`href="${base}privacy/"`));
     assert.ok(result.includes('<main>Approved content</main>'));
     assert.ok(result.includes('<input type="checkbox" data-advertising-consent'));

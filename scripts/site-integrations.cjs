@@ -10,12 +10,12 @@ function integratePage(html, path) {
   const css = html.includes(`href="${base}style/privacy.css?v=1"`) ? '' : `  <link rel="stylesheet" href="${base}style/privacy.css?v=1">\n`;
   const head = css +
     `  <script src="${base}style/tracking-config.js?v=1" defer></script>\n` +
-    `  <script src="${base}style/tracking.js?v=1" data-prfm-integrations defer></script>\n`;
+    `  <script src="${base}style/tracking.js?v=2" data-prfm-integrations defer></script>\n`;
   const controls = `\n  <aside class="prfm-privacy-controls" aria-label="Privacy and advertising preferences">\n` +
     `    <div class="prfm-privacy-controls-inner">\n` +
     `      <a href="${privacy}">Privacy policy</a>\n` +
-    `      <label><input type="checkbox" data-advertising-consent aria-describedby="prfm-advertising-description prfm-advertising-status"> Allow Meta advertising measurement and personalised ads</label>\n` +
-    `      <p id="prfm-advertising-description">Optional. Allows Meta to receive page visits and confirmed waitlist signups using cookies and device identifiers. You can withdraw permission here anytime.</p>\n` +
+    `      <label><input type="checkbox" data-advertising-consent aria-describedby="prfm-advertising-description prfm-advertising-status"> Meta advertising measurement and personalised ads</label>\n` +
+    `      <p id="prfm-advertising-description">Tracking is on by default unless you have opted out or your browser privacy preference disables it. Meta receives page visits and confirmed waitlist signups using cookies and device identifiers. Uncheck to opt out.</p>\n` +
     `      <p id="prfm-advertising-status" data-advertising-status role="status">Advertising tracking off.</p>\n` +
     `      <noscript>Advertising tracking is off because JavaScript is disabled.</noscript>\n` +
     `    </div>\n  </aside>`;
