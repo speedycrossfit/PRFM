@@ -1,0 +1,33 @@
+.prfm-privacy-controls {
+  background: #121417;
+  color: #c4c7cc;
+  padding: 16px clamp(20px, 6vw, 76px);
+  border-top: 1px solid #34373c;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.prfm-privacy-controls-inner { max-width: 1288px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; }
+.prfm-privacy-controls a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.prfm-privacy-controls label { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
+.prfm-privacy-controls input { width: 18px; height: 18px; flex: 0 0 18px; accent-color: #2457e6; }
+.prfm-privacy-controls input:focus-visible, .prfm-privacy-controls a:focus-visible { outline: 2px solid #93b4ff; outline-offset: 4px; }
+.prfm-privacy-controls [data-advertising-status] { flex-basis: 100%; margin: 0; }
+.prfm-privacy-controls #prfm-advertising-description { flex-basis: 100%; max-width: 900px; margin: 0; }
+.prfm-waitlist-privacy { font-size: 0.8rem; line-height: 1.6; color: #525760; margin: 0; }
+.prfm-waitlist-privacy a { color: #2457e6; text-decoration: underline; }
+.prfm-waitlist-status { margin: 0; font-size: 0.9rem; line-height: 1.6; color: #2457e6; }
+.prfm-waitlist-status:empty { display: none; }
+.prfm-waitlist-status[data-error] { color: #b42318; }
+.privacy-page { background: #fff; color: #151719; padding: 150px 24px 64px; }
+.privacy-page article { max-width: 760px; margin: 0 auto; }
+.privacy-page h1 { font-size: 2.5rem; line-height: 1.15; margin: 0 0 18px; }
+.privacy-page h2 { font-size: 1.25rem; line-height: 1.4; margin: 32px 0 12px; }
+.privacy-page p, .privacy-page li { font-size: 1rem; line-height: 1.8; margin-bottom: 16px; overflow-wrap: anywhere; }
+.privacy-page ul { padding-left: 24px; }
+.privacy-page a { color: #2457e6; text-decoration: underline; text-underline-offset: 3px; }
+.privacy-page address { font-style: normal; line-height: 1.8; }
+@media (max-width: 600px) {
+  .prfm-privacy-controls-inner { display: grid; gap: 6px; }
+  .privacy-page { padding-top: 120px; }
+  .privacy-page h1 { font-size: 2rem; }
+}

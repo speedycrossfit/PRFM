@@ -1,6 +1,7 @@
-const { cpSync, lstatSync, mkdirSync, readdirSync, rmSync } = require('node:fs');
+const { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync } = require('node:fs');
 const { basename, join } = require('node:path');
 const { spawnSync } = require('node:child_process');
+const { addSiteIntegrations } = require('./site-integrations.cjs');
 
 function buildStaticSite(root) {
   const output = join(root, 'public');
@@ -18,6 +19,10 @@ function buildStaticSite(root) {
   for (const directory of ['programs', 'style', 'images', 'media']) {
     cpSync(join(root, directory), join(output, directory), { recursive: true, filter });
   }
+  if (existsSync(join(root, 'privacy'))) {
+    cpSync(join(root, 'privacy'), join(output, 'privacy'), { recursive: true, filter });
+  }
+  addSiteIntegrations(output);
   return output;
 }
 
