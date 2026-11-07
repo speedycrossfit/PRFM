@@ -15,7 +15,7 @@ test('Vercel serves only the generated website directory after the tested build'
 test('The static release preserves website bytes and excludes private files, archives and staging media', t => {
   const root = mkdtempSync(join(tmpdir(), 'prfm-release-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
-  const website = ['index.html', 'mobile-preview.html', 'LUCIDE-LICENSE.txt', 'programs/base/index.html', 'programs/pro/mobile-preview.html', 'style/main.css', 'style/program.js', 'images/hero.jpg', 'media/app.mp4'];
+  const website = ['index.html', 'mobile-preview.html', 'LUCIDE-LICENSE.txt', 'thank-you/index.html', 'programs/base/index.html', 'programs/pro/mobile-preview.html', 'style/main.css', 'style/program.js', 'images/hero.jpg', 'media/app.mp4'];
   const excluded = ['README.md', 'HANDOFF.md', '.env', 'website.zip', 'tests/example.test.cjs', 'scripts/internal.cjs', 'media/app.mp4.sb-backup', 'images/.DS_Store', 'programs/notes.md', 'public/stale.html'];
   for (const file of [...website, ...excluded]) {
     mkdirSync(dirname(join(root, file)), { recursive: true });

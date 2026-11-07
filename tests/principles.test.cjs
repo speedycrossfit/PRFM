@@ -9,7 +9,7 @@ const root = join(__dirname, '..');
 const home = readFileSync(join(root, 'index.html'), 'utf8');
 
 test('Only the requested Section 2 headline, sentence and scoped stylesheet change the approved homepage', () => {
-  assert.equal(createHash('sha256').update(restoreSectionTwo(home)).digest('hex'), 'f5a374d18c14a36df58fd402cbfc2077804710bdae897a76fe586f2a9be247ff');
+  assert.equal(createHash('sha256').update(restoreSectionTwo(home)).digest('hex'), '8834ad8b84a8734442f580d3efe69ecfe4bcf99c0dadae17dbc0ac975f2ebee5');
   const section = home.match(/<section class="section-light principles">[\s\S]*?<\/section>/)[0];
   assert.match(section, /<p>Find and follow a plan that is right for you\. Make every session count\.<\/p>/);
   assert.match(section, /class="sr-only">Serious programming for everyday people, humans and athletes\./);

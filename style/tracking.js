@@ -7,6 +7,8 @@
   const statuses = Array.from(document.querySelectorAll('[data-advertising-status]'));
   const production = location.protocol === 'https:' && config.hosts.includes(location.hostname);
   const key = config.consentKey;
+  const leadKey = 'prfm-waitlist-lead-v1';
+  const leadLifetime = 2 * 60 * 1000;
   let consent = false;
   let expires = 0;
   let generation = 0;
@@ -140,11 +142,32 @@
   }
 
   function changeChoice(granted) {
+    discardWaitlistLead();
     const expiry = Date.now() + config.consentDays * 86400000;
     try {
       localStorage.setItem(key, JSON.stringify({ version: 1, granted: granted === true, expires: expiry }));
     } catch (_) { /* A changed preference lasts for this page only if storage is blocked. */ }
     apply(granted, expiry);
+  }
+
+  function discardWaitlistLead() {
+    try { sessionStorage.removeItem(leadKey); }
+    catch (_) { /* Advertising storage can be unavailable. */ }
+  }
+
+  function consumeWaitlistLead() {
+    if (!/^\/thank-you(?:\/index\.html|\/)?$/.test(location.pathname)) return;
+    try {
+      const saved = sessionStorage.getItem(leadKey);
+      if (saved === null) return;
+      // Remove before queuing so a reload cannot replay the conversion.
+      sessionStorage.removeItem(leadKey);
+      const deadline = JSON.parse(saved);
+      const now = Date.now();
+      if (Number.isFinite(deadline) && deadline > now && deadline <= now + leadLifetime) {
+        send('Lead', generation);
+      }
+    } catch (_) { /* Blocked storage must never affect the confirmation page. */ }
   }
 
   window.PRFMTracking = Object.freeze({
@@ -155,15 +178,21 @@
       return token;
     },
     completeSubmission: function (token) {
-      if (token && submissions.has(token)) {
-        submissions.delete(token);
+      if (!token || !submissions.delete(token) || !allowed() || token.generation !== generation) return;
+      if (ready) {
         send('Lead', token.generation);
+        return;
       }
+      // The signup is confirmed, but navigating now would discard this page's SDK queue.
+      // Pass only a deadline to the next page, never the submission or its fields.
+      try { sessionStorage.setItem(leadKey, JSON.stringify(Math.min(expires, Date.now() + leadLifetime))); }
+      catch (_) { /* The signup and redirect still succeed without advertising. */ }
     }
   });
   controls.forEach(control => control.addEventListener('change', () => changeChoice(control.checked)));
   window.addEventListener('storage', event => {
     if (event.key !== key && event.key !== null) return;
+    discardWaitlistLead();
     const choice = readChoice(false);
     apply(choice.granted, choice.expires);
   });
@@ -174,4 +203,5 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
   const choice = readChoice();
   apply(choice.granted, choice.expires);
+  consumeWaitlistLead();
 })();

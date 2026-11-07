@@ -8,6 +8,7 @@
     const button = form.querySelector('button[type="submit"]');
     const status = form.querySelector('[data-waitlist-status]');
     if (!button || !status) return;
+    const destination = new URL('thank-you/', window.location.href);
     let busy = false;
     let completed = false;
     const label = button.textContent;
@@ -23,7 +24,8 @@
       status.textContent = '';
       status.removeAttribute('data-error');
       const tracker = window.PRFMTracking;
-      const token = tracker ? tracker.beginSubmission() : null;
+      let token = null;
+      try { if (tracker) token = tracker.beginSubmission(); } catch (_) {}
       try {
         const response = await fetch(form.action, {
           method: 'POST', body: data, headers: { Accept: 'application/json' }, credentials: 'omit'
@@ -36,8 +38,6 @@
         status.textContent = "You're on the waitlist. Thanks for joining PRFM!";
         form.reset();
         button.textContent = 'Joined';
-        // Only this confirmed-success branch can produce a Lead. No form values are passed.
-        try { if (tracker) tracker.completeSubmission(token); } catch (_) {}
       } catch (_) {
         status.dataset.error = 'true';
         status.textContent = 'Your signup could not be confirmed. Please try again. If this continues, email hello@prfmfitness.com.';
@@ -47,6 +47,13 @@
         button.disabled = completed;
         form.removeAttribute('aria-busy');
       }
+      if (!completed) return;
+      try { if (tracker) tracker.completeSubmission(token); } catch (_) {}
+      const next = document.createElement('a');
+      next.href = destination.href;
+      next.textContent = 'See what happens next';
+      status.append(' ', next);
+      try { window.location.assign(destination.href); } catch (_) { /* The link remains available. */ }
     });
   });
 })();

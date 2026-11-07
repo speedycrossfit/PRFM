@@ -1,0 +1,68 @@
+.thank-you-page { background: var(--near-black); color: var(--off-white); }
+.thanks-wrap { width: min(1120px, calc(100% - 96px)); margin-inline: auto; }
+.thank-you-page a:focus-visible { outline: 2px solid var(--blue-on-dark); outline-offset: 5px; }
+.thanks-header { border-bottom: 1px solid var(--line-light); }
+.thanks-header .thanks-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.thanks-logo { display: inline-flex; align-items: center; min-height: 44px; }
+.thanks-logo img { width: 86px; height: auto; }
+.thanks-header span, .thanks-confirmation p, .thanks-status { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.thanks-header span { color: var(--muted-light); text-align: right; }
+.thanks-hero { padding: clamp(52px, 7vw, 104px) 0 clamp(52px, 6vw, 84px); }
+.thanks-confirmation { display: flex; align-items: center; gap: 16px; color: var(--blue-on-dark); }
+.thanks-check { display: block; width: 54px; height: 54px; border: 1px solid #4d6cc3; border-radius: 50%; }
+.thanks-hero h1 { font-size: clamp(4rem, 12vw, 9.5rem); line-height: .9; margin: 26px 0 20px; letter-spacing: -.055em; }
+.thanks-deck { color: var(--white); font-family: Manrope, Inter, sans-serif; font-size: clamp(1.35rem, 3.2vw, 2.5rem); font-weight: 800; margin-bottom: 12px; }
+.thanks-hero-copy > p:last-child, .thanks-close p { color: var(--muted-light); font-size: clamp(1rem, 1.8vw, 1.125rem); line-height: 1.6; }
+.thanks-journey { border-top: 1px solid var(--line-light); background: #17181b; padding: clamp(48px, 7vw, 92px) 0; }
+.thanks-journey-grid, .thanks-challenge-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; gap: clamp(36px, 8vw, 112px); }
+.thank-you-page .section-label { color: var(--blue-on-dark); margin-bottom: 16px; }
+.thanks-journey h2, .thanks-challenge h2, .thanks-close h2 { font-size: clamp(2.15rem, 4.8vw, 4.2rem); line-height: 1.02; text-wrap: balance; }
+.thanks-steps { list-style: none; --marker-size: 36px; --marker-gap: 20px; }
+.thanks-step { position: relative; display: grid; grid-template-columns: var(--marker-size) minmax(0, 1fr); gap: var(--marker-gap); padding-bottom: 27px; }
+.thanks-step:last-child { padding-bottom: 0; }
+.thanks-step:not(:last-child)::before, .thanks-step:not(:last-child)::after { content: ""; position: absolute; left: calc(var(--marker-size) / 2 - .5px); top: var(--marker-size); bottom: 0; width: 1px; }
+.thanks-step:not(:last-child)::before { background: var(--line-light); }
+.thanks-step:not(:last-child)::after { background: var(--blue-on-dark); transform-origin: top; }
+.thanks-marker { position: relative; display: grid; place-items: center; width: var(--marker-size); height: var(--marker-size); background: #17181b; border: 1px solid #686b72; border-radius: 50%; color: #d2d3d7; font-size: .72rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.thanks-step-complete .thanks-marker { background: var(--blue); border-color: var(--blue); color: white; }
+.thanks-step-next .thanks-marker { border-color: var(--blue-on-dark); color: var(--blue-on-dark); }
+.thanks-step-content { padding: 2px 0 22px; border-bottom: 1px solid var(--line-light); }
+.thanks-step:last-child .thanks-step-content { border-bottom: 0; padding-bottom: 0; }
+.thanks-status { color: #b6b8bf; margin-bottom: 8px; }
+.thanks-step-complete .thanks-status, .thanks-step-next .thanks-status { color: var(--blue-on-dark); }
+.thanks-step h3 { font-size: clamp(1.15rem, 2.2vw, 1.55rem); letter-spacing: -.01em; line-height: 1.2; margin-bottom: 8px; }
+.thanks-step-content > p:last-child { color: #d2d3d7; line-height: 1.65; }
+.thanks-challenge { background: var(--off-white); color: var(--near-black); padding: clamp(48px, 7vw, 90px) 0; }
+.thanks-challenge .section-label { color: var(--blue-dark); }
+.thanks-challenge-copy { border-left: 2px solid var(--blue); padding-left: clamp(16px, 3vw, 30px); font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.65; }
+.thanks-challenge-copy p + p { margin-top: 15px; }
+.thanks-close { text-align: center; padding: clamp(56px, 8vw, 108px) 0; }
+.thanks-close p { margin: 16px 0 22px; }
+.thanks-close a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--blue-on-dark); font-size: .9rem; text-underline-offset: 5px; }
+
+@media (max-width: 760px) {
+  .thanks-wrap { width: calc(100% - 40px); }
+  .thanks-header .thanks-wrap { min-height: 64px; }
+  .thanks-logo img { width: 72px; }
+  .thanks-hero h1 { font-size: clamp(3.25rem, 13vw, 5rem); }
+  .thanks-journey-grid, .thanks-challenge-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .thanks-steps { --marker-size: 32px; --marker-gap: 14px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .thanks-check path { stroke-dasharray: 1; animation: thanks-draw 1s ease-out both; }
+  .thanks-hero-copy { animation: thanks-reveal .48s .92s ease-out both; }
+  .thanks-sequence.is-playing .thanks-step { --reveal-delay: calc(var(--intro-delay, 0s) + var(--step-delay, 0s)); }
+  .thanks-sequence.is-playing .thanks-step-content, .thanks-sequence.is-playing .thanks-marker { animation: thanks-reveal .4s var(--reveal-delay) ease-out both; }
+  .thanks-sequence.is-playing .thanks-step::after { animation: thanks-connect .5s calc(var(--reveal-delay) + .12s) ease-out both; }
+  .thanks-sequence.is-playing .thanks-close-copy { animation: thanks-reveal .5s calc(var(--intro-delay, 0s) + 3.9s) ease-out both; }
+  .thanks-step:nth-child(2) { --step-delay: .58s; }
+  .thanks-step:nth-child(3) { --step-delay: 1.16s; }
+  .thanks-step:nth-child(4) { --step-delay: 1.74s; }
+  .thanks-step:nth-child(5) { --step-delay: 2.32s; }
+  .thanks-step:nth-child(6) { --step-delay: 2.9s; }
+  .thanks-step:nth-child(7) { --step-delay: 3.48s; }
+  @keyframes thanks-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes thanks-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes thanks-connect { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+}

@@ -9,11 +9,13 @@ const root = join(__dirname, '..');
 const source = readFileSync(join(root, 'style/tracking.js'), 'utf8');
 const config = readFileSync(join(root, 'style/tracking-config.js'), 'utf8');
 const consentKey = 'prfm-advertising-consent-v1';
+const leadKey = 'prfm-waitlist-lead-v1';
 
 function harness(options = {}) {
   const listeners = {};
   const scripts = [];
   const values = new Map();
+  const session = options.session || new Map();
   if (options.stored !== undefined) values.set(consentKey, options.stored);
   const control = { checked: false, disabled: false, addEventListener(name, callback) { this[name] = callback; } };
   const status = {};
@@ -31,17 +33,22 @@ function harness(options = {}) {
   if (options.foreign) window.fbq = () => {};
   const context = vm.createContext({
     window, document,
-    location: { protocol: 'https:', hostname: options.host || 'www.prfmfitness.com', search: options.search || '' },
+    location: { protocol: 'https:', hostname: options.host || 'www.prfmfitness.com', pathname: options.path || '/', search: options.search || '' },
     navigator: options.navigator || {}, URLSearchParams,
     localStorage: {
       getItem: key => { if (options.blockStorage) throw new Error('Blocked'); return values.get(key) || null; },
       setItem: (key, value) => { if (options.blockStorage) throw new Error('Blocked'); values.set(key, value); }
+    },
+    sessionStorage: {
+      getItem: key => session.get(key) ?? null,
+      setItem: (key, value) => { if (options.blockSession) throw new Error('Blocked'); session.set(key, value); },
+      removeItem: key => { if (options.blockSession) throw new Error('Blocked'); session.delete(key); }
     }
   });
   vm.runInContext(config, context);
   vm.runInContext(source, context);
   return {
-    window, control, status, scripts, listeners, values, context,
+    window, control, status, scripts, listeners, values, session, context,
     choose(granted) { control.checked = granted; control.change(); },
     load() { scripts[0].onload(); },
     calls() { return window.fbq && window.fbq.queue ? Array.from(window.fbq.queue, args => Array.from(args)) : []; },
@@ -112,6 +119,41 @@ test('Confirmed submissions can emit one Lead each and never include form fields
   const second = app.window.PRFMTracking.beginSubmission();
   app.window.PRFMTracking.completeSubmission(second);
   assert.deepEqual(app.events(), ['PageView', 'Lead', 'Lead']);
+  const destination = harness({ session: app.session, path: '/thank-you/' });
+  destination.load();
+  assert.deepEqual(destination.events(), ['PageView']);
+});
+
+test('A slow SDK hands off one confirmed Lead, consumed before the destination SDK loads', () => {
+  const form = harness();
+  const token = form.window.PRFMTracking.beginSubmission();
+  form.window.PRFMTracking.completeSubmission(token);
+  form.window.PRFMTracking.completeSubmission(token);
+  assert.equal(form.session.size, 1);
+  assert.equal(typeof JSON.parse(form.session.get(leadKey)), 'number');
+  form.load();
+  assert.deepEqual(form.events(), ['PageView']);
+  const destination = harness({ session: form.session, path: '/thank-you/' });
+  assert.equal(form.session.size, 0);
+  const refresh = harness({ session: form.session, path: '/thank-you/' });
+  refresh.load();
+  destination.load();
+  assert.deepEqual(destination.events(), ['PageView', 'Lead']);
+  assert.deepEqual(refresh.events(), ['PageView']);
+});
+
+test('Expired, malformed, opted-out and unavailable receipts never become Leads', () => {
+  for (const options of [
+    { receipt: 'bad' }, { receipt: JSON.stringify(Date.now() - 1000) }, { receipt: JSON.stringify(Date.now() + 600000) },
+    { stored: JSON.stringify({ version: 1, granted: false, expires: 0 }) }, { navigator: { globalPrivacyControl: true } },
+    { blockSession: true }, { host: '127.0.0.1' }
+  ]) {
+    const session = new Map([[leadKey, options.receipt ?? JSON.stringify(Date.now() + 30000)]]);
+    const app = harness({ ...options, session, path: '/thank-you' });
+    if (app.scripts.length) app.load();
+    assert.ok(!app.events().includes('Lead'));
+    if (!options.blockSession) assert.equal(session.size, 0);
+  }
 });
 
 test('Withdrawal cancels pending events, revokes Meta permission and invalidates in-flight submission tokens', () => {
@@ -120,6 +162,7 @@ test('Withdrawal cancels pending events, revokes Meta permission and invalidates
   const token = app.window.PRFMTracking.beginSubmission();
   app.window.PRFMTracking.completeSubmission(token);
   app.choose(false);
+  assert.equal(app.session.size, 0);
   app.load();
   assert.deepEqual(app.events(), []);
   assert.ok(app.calls().some(args => args[0] === 'consent' && args[1] === 'revoke'));
@@ -187,9 +230,9 @@ test('Cross-tab withdrawal and SDK load failure do not break forms or send event
 
 test('Shared build injection preserves original markup and adds the tracking preference once at the correct paths', () => {
   const source = '<html><head></head><body><main>Approved content</main><footer></footer></body></html>';
-  for (const [path, base] of [['index.html', ''], ['programs/strong/index.html', '../../'], ['privacy/index.html', '../']]) {
+  for (const [path, base] of [['index.html', ''], ['programs/strong/index.html', '../../'], ['privacy/index.html', '../'], ['thank-you/index.html', '../']]) {
     const result = integratePage(source, path);
-    assert.ok(result.includes(`src="${base}style/tracking.js?v=2"`));
+    assert.ok(result.includes(`src="${base}style/tracking.js?v=3"`));
     assert.ok(result.includes(`href="${base}privacy/"`));
     assert.ok(result.includes('<main>Approved content</main>'));
     assert.ok(result.includes('<input type="checkbox" data-advertising-consent'));
@@ -204,7 +247,7 @@ test('Waitlist handling and collection notice are injected only for the existing
   const html = '<head></head><form class="waitlist-form reveal">\n      </form><footer></footer>';
   const result = integratePage(html, 'index.html');
   assert.match(result, /data-waitlist-status/);
-  assert.match(result, /src="style\/waitlist.js\?v=1"/);
+  assert.match(result, /src="style\/waitlist.js\?v=2"/);
   assert.match(result, /requested guide and launch updates/);
   const program = integratePage('<head></head><footer></footer>', 'programs/base/index.html');
   assert.doesNotMatch(program, /waitlist.js|data-waitlist-status/);

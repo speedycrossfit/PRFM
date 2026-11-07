@@ -16,7 +16,7 @@ function buildStaticSite(root) {
   for (const file of ['index.html', 'mobile-preview.html', 'LUCIDE-LICENSE.txt']) {
     cpSync(join(root, file), join(output, file));
   }
-  for (const directory of ['programs', 'style', 'images', 'media']) {
+  for (const directory of ['programs', 'thank-you', 'style', 'images', 'media']) {
     cpSync(join(root, directory), join(output, directory), { recursive: true, filter });
   }
   if (existsSync(join(root, 'privacy'))) {
