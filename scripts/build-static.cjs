@@ -13,7 +13,7 @@ function buildStaticSite(root) {
     if (name.startsWith('.') || name.includes('.sb-') || stat.isSymbolicLink()) return false;
     return stat.isDirectory() || /\.(html|css|js|png|jpe?g|webp|avif|gif|svg|ico|mp4|webm|woff2?)$/i.test(name);
   };
-  for (const file of ['index.html', 'mobile-preview.html', 'LUCIDE-LICENSE.txt']) {
+  for (const file of ['index.html', 'mobile-preview.html', 'LUCIDE-LICENSE.txt', 'performance-mindset.pdf']) {
     cpSync(join(root, file), join(output, file));
   }
   for (const directory of ['programs', 'thank-you', 'style', 'images', 'media']) {

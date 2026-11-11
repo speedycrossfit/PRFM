@@ -7,12 +7,18 @@
 .thanks-logo img { width: 86px; height: auto; }
 .thanks-header span, .thanks-confirmation p, .thanks-status { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .thanks-header span { color: var(--muted-light); text-align: right; }
-.thanks-hero { padding: clamp(52px, 7vw, 104px) 0 clamp(52px, 6vw, 84px); }
+.thanks-hero { padding: 32px 0; }
+.thanks-hero-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr); align-items: center; gap: 40px; }
+.thanks-welcome { min-width: 0; }
 .thanks-confirmation { display: flex; align-items: center; gap: 16px; color: var(--blue-on-dark); }
 .thanks-check { display: block; width: 54px; height: 54px; border: 1px solid #4d6cc3; border-radius: 50%; }
-.thanks-hero h1 { font-size: clamp(4rem, 12vw, 9.5rem); line-height: .9; margin: 26px 0 20px; letter-spacing: -.055em; }
-.thanks-deck { color: var(--white); font-family: Manrope, Inter, sans-serif; font-size: clamp(1.35rem, 3.2vw, 2.5rem); font-weight: 800; margin-bottom: 12px; }
+.thanks-hero h1 { font-size: clamp(4rem, 11vw, 8.5rem); line-height: .9; margin: 16px 0 12px; letter-spacing: -.055em; }
+.thanks-deck { color: var(--white); font-family: Manrope, Inter, sans-serif; font-size: clamp(1.35rem, 3.2vw, 2.5rem); line-height: 1.2; font-weight: 800; margin-bottom: 12px; }
 .thanks-hero-copy > p:last-child, .thanks-close p { color: var(--muted-light); font-size: clamp(1rem, 1.8vw, 1.125rem); line-height: 1.6; }
+.thanks-guide { min-width: 0; padding-left: 28px; border-left: 1px solid var(--line-light); }
+.thanks-guide h2 { margin-bottom: 18px; font-size: 1.25rem; line-height: 1.4; text-transform: none; }
+.thanks-guide-button { display: flex; width: 100%; min-height: 56px; padding: 16px 18px; font-size: .85rem; line-height: 1.5; text-align: center; text-transform: uppercase; text-wrap: balance; }
+.thanks-guide > p { margin-top: 12px; color: var(--muted-light); font-size: .85rem; line-height: 1.6; }
 .thanks-journey { border-top: 1px solid var(--line-light); background: #17181b; padding: clamp(48px, 7vw, 92px) 0; }
 .thanks-journey-grid, .thanks-challenge-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; gap: clamp(36px, 8vw, 112px); }
 .thank-you-page .section-label { color: var(--blue-on-dark); margin-bottom: 16px; }
@@ -40,11 +46,17 @@
 .thanks-close p { margin: 16px 0 22px; }
 .thanks-close a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--blue-on-dark); font-size: .9rem; text-underline-offset: 5px; }
 
+@media (max-width: 1000px) {
+  .thanks-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .thanks-guide { padding: 22px 0 0; border-left: 0; border-top: 1px solid var(--line-light); }
+  .thanks-guide-button { max-width: 420px; }
+}
 @media (max-width: 760px) {
   .thanks-wrap { width: calc(100% - 40px); }
   .thanks-header .thanks-wrap { min-height: 64px; }
   .thanks-logo img { width: 72px; }
   .thanks-hero h1 { font-size: clamp(3.25rem, 13vw, 5rem); }
+  .thanks-guide h2 { margin-bottom: 12px; font-size: 1.1rem; }
   .thanks-journey-grid, .thanks-challenge-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
   .thanks-steps { --marker-size: 32px; --marker-gap: 14px; }
 }

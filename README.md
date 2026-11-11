@@ -8,7 +8,7 @@ Pre-launch. The primary conversion goal is the waitlist form.
 
 ### Waitlist confirmation and Meta verification
 
-The homepage form redirects to `/thank-you/` after Formspree confirms the signup. With JavaScript disabled, the native Formspree confirmation remains available. The thank-you page has seven animated milestones, a reduced-motion layout and a `noindex` directive. The guide is sent manually.
+The homepage form redirects to `/thank-you/` after Formspree confirms the signup. With JavaScript disabled, the native Formspree confirmation remains available. The thank-you page has seven animated milestones, a reduced-motion layout and a `noindex` directive. Its compact hero links to the supplied `performance-mindset.pdf` in a new tab. The build copies that exact PDF to the site root and Vercel serves it inline as `application/pdf`. Ben sends a personal welcome email manually.
 
 The existing Pixel ID `610522118540785` is configured in `style/tracking-config.js`. On a successful signup, the Pixel sends `Lead` before navigation if its SDK has loaded. Otherwise the page stores a two-minute deadline in the current tab's session storage. The thank-you page removes it before queuing `Lead`. Both paths use the existing advertising preferences. The form sends signup details only to Formspree, and the redirect URL carries no form data. Browser privacy settings, ad blockers, storage failures or interrupted network requests can prevent delivery. The event call does not confirm receipt by Meta.
 
@@ -23,7 +23,7 @@ After separate production approval, open [Meta Events Manager](https://eventsman
 
 In the ad set for a Leads campaign, choose **Website** as the conversion location, select **PRFM 1** as the dataset and choose the standard **Lead** conversion event. A custom conversion based on the thank-you URL can count direct visits and refreshes. Check Events Manager for any existing button or URL rules and reconcile duplicates before optimizing a campaign. The local preview uses the existing production host restriction, so event receipt for this release must be checked in Meta after publication. Review the site's default-on advertising preference against the consent requirements for the audiences you intend to reach before enabling the production flow.
 
-The Performance Mindset guide is available now and is sent manually to waitlist signups. The PDF is not stored in this project; there is no automated guide delivery. The title was updated in Version 4; the guide's content and cover remain the owner's responsibility.
+The Performance Mindset guide is immediately available from the thank-you page. Personal welcome emails are sent manually by Ben. The title was updated in Version 4; the supplied guide's content and cover are the owner's responsibility.
 
 All seven programme categories remain visible without pricing during pre-launch. Launch pricing is preserved in `HANDOFF.md`.
 
