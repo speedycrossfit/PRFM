@@ -1,5 +1,6 @@
 const { readFileSync, readdirSync, writeFileSync } = require('node:fs');
 const { dirname, join, relative, sep } = require('node:path');
+const { renderFaq } = require('./faq.cjs');
 
 function integratePage(html, path) {
   if (!html.includes('</head>') || !html.includes('</footer>') || html.includes('data-prfm-integrations')) return html;
@@ -7,6 +8,7 @@ function integratePage(html, path) {
   const prefix = relative(dirname(path), '.').split(sep).join('/');
   const base = prefix ? prefix + '/' : '';
   const privacy = base + 'privacy/';
+  const faq = base ? base + 'index.html#faq' : '#faq';
   const css = html.includes(`href="${base}style/privacy.css?v=1"`) ? '' : `  <link rel="stylesheet" href="${base}style/privacy.css?v=1">\n`;
   const head = css +
     `  <script src="${base}style/tracking-config.js?v=1" defer></script>\n` +
@@ -14,12 +16,19 @@ function integratePage(html, path) {
   const controls = `\n  <aside class="prfm-privacy-controls" aria-label="Privacy and advertising preferences">\n` +
     `    <div class="prfm-privacy-controls-inner">\n` +
     `      <a href="${privacy}">Privacy policy</a>\n` +
+    `      <a href="${faq}">FAQ</a>\n` +
     `      <label><input type="checkbox" data-advertising-consent aria-describedby="prfm-advertising-description prfm-advertising-status"> Meta advertising measurement and personalised ads</label>\n` +
     `      <p id="prfm-advertising-description">Tracking is on by default unless you have opted out or your browser privacy preference disables it. Meta receives page visits and confirmed waitlist signups using cookies and device identifiers. Uncheck to opt out.</p>\n` +
     `      <p id="prfm-advertising-status" data-advertising-status role="status">Advertising tracking off.</p>\n` +
     `      <noscript>Advertising tracking is off because JavaScript is disabled.</noscript>\n` +
     `    </div>\n  </aside>`;
   html = html.replace('</head>', head + '</head>').replace('</footer>', '</footer>' + controls);
+  const waitlistSection = '    <section class="waitlist section-light" id="waitlist">';
+  if (path === 'index.html' && html.includes(waitlistSection)) {
+    html = html.replace(waitlistSection, renderFaq() + '\n\n' + waitlistSection);
+    html = html.replace('</head>', '  <link rel="stylesheet" href="style/faq.css?v=1">\n' +
+      '  <script src="style/faq.js?v=1" defer></script>\n</head>');
+  }
   if (html.includes('class="waitlist-form reveal"')) {
     html = html.replace('      </form>',
       `        <p class="prfm-waitlist-privacy">We use your name and email for the requested guide and launch updates. <a href="${privacy}">Privacy policy</a></p>\n` +

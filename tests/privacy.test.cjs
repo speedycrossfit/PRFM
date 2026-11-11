@@ -13,6 +13,9 @@ test('All published pages receive one shared tracking integration without changi
     assert.equal((integrated.match(/data-prfm-integrations/g) || []).length, 1, path);
     assert.equal((integrated.match(/data-advertising-consent/g) || []).length, 1, path);
     const original = integrated
+      .replace(/^  <link rel="stylesheet" href="style\/faq.css\?v=1">\n/m, '')
+      .replace(/^  <script src="style\/faq.js\?v=1" defer><\/script>\n/m, '')
+      .replace(/    <section class="faq section-light" id="faq"[\s\S]*?<\/section>\n\n/, '')
       .replace(/^  <link rel="stylesheet" href="[^"]*style\/privacy.css\?v=1">\n/m, '')
       .replace(/^  <script src="[^"]*style\/(?:tracking-config|tracking|waitlist).js\?v=\d+"[^>]*><\/script>\n/gm, '')
       .replace(/\n  <aside class="prfm-privacy-controls"[\s\S]*?<\/aside>/, '')
