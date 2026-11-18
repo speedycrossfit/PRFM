@@ -8,7 +8,9 @@
     const button = form.querySelector('button[type="submit"]');
     const status = form.querySelector('[data-waitlist-status]');
     if (!button || !status) return;
-    const destination = new URL('thank-you/', window.location.href);
+    const destination = form.dataset.waitlistDestination
+      ? new URL(form.dataset.waitlistDestination, document.baseURI)
+      : new URL('thank-you/', window.location.href);
     let busy = false;
     let completed = false;
     const label = button.textContent;

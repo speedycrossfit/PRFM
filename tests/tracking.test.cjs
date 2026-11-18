@@ -247,7 +247,7 @@ test('Waitlist handling and collection notice are injected only for the existing
   const html = '<head></head><form class="waitlist-form reveal">\n      </form><footer></footer>';
   const result = integratePage(html, 'index.html');
   assert.match(result, /data-waitlist-status/);
-  assert.match(result, /src="style\/waitlist.js\?v=2"/);
+  assert.match(result, /src="style\/waitlist.js\?v=3"/);
   assert.match(result, /requested guide and launch updates/);
   const program = integratePage('<head></head><footer></footer>', 'programs/base/index.html');
   assert.doesNotMatch(program, /waitlist.js|data-waitlist-status/);

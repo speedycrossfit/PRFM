@@ -16,7 +16,7 @@ function harness(options = {}) {
   const status = { textContent: '', dataset: {}, removeAttribute() { delete this.dataset.error; }, append(_, link) { this.link = link; } };
   let resets = 0;
   const form = {
-    action: 'https://formspree.io/f/xdarbjra', dataset: {},
+    action: 'https://formspree.io/f/xdarbjra', dataset: { ...options.dataset },
     querySelector(selector) { return selector.startsWith('button') ? button : status; },
     addEventListener(name, callback) { handler = callback; },
     reportValidity() { return options.valid !== false; },
@@ -34,13 +34,13 @@ function harness(options = {}) {
   };
   const token = {};
   const tracker = { beginSubmission() { if (options.beginThrows) throw new Error('Pixel'); return token; }, completeSubmission(value) { order.push('tracking'); leads.push(value); if (options.pixelThrows) throw new Error('Pixel'); } };
-  const location = { href: 'https://www.prfmfitness.com/index.html?utm_source=facebook#waitlist', assign(url) {
+  const location = { href: options.url || 'https://www.prfmfitness.com/index.html?utm_source=facebook#waitlist', assign(url) {
     order.push('redirect'); redirects.push(url);
     if (options.redirectThrows) throw new Error('Navigation');
   } };
   const context = vm.createContext({
     window: { fetch, FormData, location, PRFMTracking: options.noTracker ? undefined : tracker }, fetch, FormData, URL,
-    document: { querySelectorAll: () => [form], createElement: () => ({}) }
+    document: { baseURI: location.href, querySelectorAll: () => [form], createElement: () => ({}) }
   });
   vm.runInContext(source, context);
   return { button, status, requests, leads, redirects, order, form, token, context, resets: () => resets, submit: () => handler({ preventDefault() {} }) };
@@ -62,6 +62,17 @@ test('Only a confirmed successful Formspree response produces one Lead, without 
   assert.equal(app.button.disabled, true);
   assert.equal(app.resets(), 1);
   assert.match(app.status.textContent, /on the waitlist/);
+});
+
+test('Early access resolves the existing confirmation route with or without a trailing slash or campaign parameters', async () => {
+  for (const path of ['/early-access', '/early-access/', '/early-access/index.html?utm_source=instagram&fbclid=campaign']) {
+    const app = harness({ url: 'https://www.prfmfitness.com' + path, dataset: { waitlistDestination: '../thank-you/' } });
+    await app.submit();
+    await app.submit();
+    assert.deepEqual(app.redirects, ['https://www.prfmfitness.com/thank-you/']);
+    assert.deepEqual(app.leads, [app.token]);
+    assert.equal(app.requests.length, 1);
+  }
 });
 
 test('Invalid, honeypot, rejected, failed and unconfirmed submissions never produce Lead', async () => {

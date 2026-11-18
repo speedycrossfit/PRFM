@@ -1,0 +1,47 @@
+.early-access-page { background: #16181c; }
+.early-access-background { position: fixed; inset: -12px; pointer-events: none; user-select: none; z-index: -1; }
+.early-access-background img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: blur(4.5px); }
+.early-access-background::after { content: ""; position: absolute; inset: 0; background: rgba(9, 12, 18, .38); }
+.early-access-stage { display: grid; place-items: center; min-height: 100vh; min-height: 100svh; padding: 32px 24px; }
+.early-access-panel { width: min(100%, 700px); min-width: 0; padding: 20px 36px 14px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 12px; background: #f8f8f6; box-shadow: 0 28px 100px rgba(0, 0, 0, .38); }
+.early-access-branding { width: 125px; margin: 0 auto 26px; text-align: center; }
+.early-access-logo { display: block; width: 100%; height: auto; }
+.early-access-fitness { display: block; margin-top: 3px; padding-left: .35em; color: #74777c; font-size: .56rem; font-weight: 500; line-height: 1.4; letter-spacing: .35em; }
+.early-access-panel h1 { color: var(--blue); font-family: Manrope, Inter, sans-serif; font-size: clamp(2rem, 3.2vw, 2.625rem); line-height: 1.04; letter-spacing: -.015em; text-align: center; margin: 0; }
+.early-access-panel h1 span { white-space: nowrap; }
+.early-access-deck { margin: 10px auto 0; max-width: 580px; font-size: 1.04rem; line-height: 1.4; font-weight: 700; text-align: center; }
+.early-access-support { margin: 6px auto 0; max-width: 600px; color: #565b63; font-size: .86rem; line-height: 1.5; text-align: center; }
+.early-access-form { display: grid; gap: 8px; margin-top: 10px; padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.early-access-form label { display: grid; gap: 4px; }
+.early-access-form label span { font-size: .8rem; font-weight: 700; }
+.early-access-form input { background: #fff; border-color: #c9cbd0; font-size: 1rem; min-height: 48px; }
+.early-access-form .button { min-height: 50px; font-size: .86rem; letter-spacing: .02em; margin-top: 2px; }
+.early-access-guide { display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; gap: 17px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-dark); }
+.early-access-guide > img { display: block; width: 70px; height: auto; box-shadow: 3px 5px 12px rgba(0, 0, 0, .17); }
+.early-access-guide h2 { font-size: .69rem; line-height: 1.45; letter-spacing: .035em; font-weight: 800; margin: 0 0 7px; }
+.early-access-guide p { font-size: .79rem; line-height: 1.6; color: #565b63; }
+.early-access-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0 16px; margin-top: 8px; color: #62666e; font-size: .68rem; line-height: 1.65; }
+.early-access-footer a { color: var(--blue-dark); text-underline-offset: 3px; }
+.early-access-preferences { margin-top: 0; }
+.early-access-preferences[open] { grid-column: 1 / -1; }
+.early-access-preferences summary { width: fit-content; min-height: 44px; display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.early-access-preferences summary::after { content: "+"; text-decoration: none; font-size: 1rem; }
+.early-access-preferences[open] summary::after { content: "−"; }
+.early-access-preferences label { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-bottom: 8px; cursor: pointer; }
+.early-access-preferences input { width: 18px; height: 18px; flex: 0 0 18px; accent-color: var(--blue); }
+.early-access-preferences p + p { margin-top: 8px; }
+.early-access-page .prfm-waitlist-status { font-size: .85rem; overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .early-access-stage { padding: 24px 16px; }
+  .early-access-panel { padding: 24px 24px 16px; }
+  .early-access-branding { width: 112.5px; margin-bottom: 28px; }
+  .early-access-panel h1 { font-size: clamp(1.5rem, 8.5vw, 2.5rem); }
+  .early-access-deck { font-size: 1rem; }
+  .early-access-support { font-size: .82rem; }
+  .early-access-guide { grid-template-columns: 65px minmax(0, 1fr); gap: 14px; }
+  .early-access-guide > img { width: 65px; }
+  .early-access-footer { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .early-access-page .button { transition: none; }
+}

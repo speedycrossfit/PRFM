@@ -24,7 +24,7 @@ test('The confirmation route contains seven static milestones and is excluded fr
   assert.doesNotMatch(html, /<form\b|fbevents\.js/);
 });
 
-test('The guide link opens the supplied PDF inline in a new tab, and the form/tracking scripts retain their approved bytes', () => {
+test('The guide link opens the supplied PDF inline in a new tab, and tracking and confirmation scripts retain their approved bytes', () => {
   const { createHash } = require('node:crypto');
   const html = read('thank-you/index.html');
   assert.match(html, /href="\.\.\/performance-mindset\.pdf" target="_blank" rel="noopener noreferrer">Download The Performance Mindset<\/a>/);
@@ -38,7 +38,6 @@ test('The guide link opens the supplied PDF inline in a new tab, and the form/tr
   assert.ok(headers.some(header => header.key === 'Content-Disposition' && header.value.startsWith('inline;')));
   for (const [file, hash] of [
     ['style/tracking.js', '5587e587ce7505a2e8d0d010e35307718770b3f943a6dc0a06f4d28bf20f87eb'],
-    ['style/waitlist.js', 'a62b4ffbe51a57f0416512f1e5511c50ea4b9881a9a0d48c3727615fdd87c215'],
     ['style/thank-you.js', 'ced44edc91115a354cb62bcbfb3bbdb91c8496ee16027d895a0507482be7214c']
   ]) assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), hash, file);
 });

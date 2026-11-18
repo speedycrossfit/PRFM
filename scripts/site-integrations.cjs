@@ -22,7 +22,8 @@ function integratePage(html, path) {
     `      <p id="prfm-advertising-status" data-advertising-status role="status">Advertising tracking off.</p>\n` +
     `      <noscript>Advertising tracking is off because JavaScript is disabled.</noscript>\n` +
     `    </div>\n  </aside>`;
-  html = html.replace('</head>', head + '</head>').replace('</footer>', '</footer>' + controls);
+  html = html.replace('</head>', head + '</head>');
+  if (path !== 'early-access/index.html') html = html.replace('</footer>', '</footer>' + controls);
   const waitlistSection = '    <section class="waitlist section-light" id="waitlist">';
   if (path === 'index.html' && html.includes(waitlistSection)) {
     html = html.replace(waitlistSection, renderFaq() + '\n\n' + waitlistSection);
@@ -33,7 +34,7 @@ function integratePage(html, path) {
     html = html.replace('      </form>',
       `        <p class="prfm-waitlist-privacy">We use your name and email for the requested guide and launch updates. <a href="${privacy}">Privacy policy</a></p>\n` +
       '        <p class="prfm-waitlist-status" data-waitlist-status role="status" aria-live="polite" aria-atomic="true"></p>\n      </form>');
-    html = html.replace('</head>', `  <script src="${base}style/waitlist.js?v=2" defer></script>\n</head>`);
+    html = html.replace('</head>', `  <script src="${base}style/waitlist.js?v=3" defer></script>\n</head>`);
   }
   return html;
 }

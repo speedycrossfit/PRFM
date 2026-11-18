@@ -19,6 +19,7 @@
 .thanks-guide h2 { margin-bottom: 18px; font-size: 1.25rem; line-height: 1.4; text-transform: none; }
 .thanks-guide-button { display: flex; width: 100%; min-height: 56px; padding: 16px 18px; font-size: .85rem; line-height: 1.5; text-align: center; text-transform: uppercase; text-wrap: balance; }
 .thanks-guide > p { margin-top: 12px; color: var(--muted-light); font-size: .85rem; line-height: 1.6; }
+.thanks-explore-button { margin-top: 18px; min-height: 44px; font-size: .72rem; padding-inline: 16px; }
 .thanks-journey { border-top: 1px solid var(--line-light); background: #17181b; padding: clamp(48px, 7vw, 92px) 0; }
 .thanks-journey-grid, .thanks-challenge-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; gap: clamp(36px, 8vw, 112px); }
 .thank-you-page .section-label { color: var(--blue-on-dark); margin-bottom: 16px; }

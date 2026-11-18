@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Join the PRFM Fitness waitlist for exclusive early access and your free Performance Mindset guide.">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>Exclusive Early Access | PRFM Fitness</title>
+  <link rel="canonical" href="https://www.prfmfitness.com/early-access">
+  <link rel="icon" type="image/png" href="../images/favicon-tile-black.png">
+  <link rel="stylesheet" href="../style/main.css?v=5.3">
+  <link rel="stylesheet" href="../style/early-access.css?v=4">
+  <script src="../style/waitlist.js?v=3" defer></script>
+</head>
+<body class="early-access-page">
+  <picture class="early-access-background" aria-hidden="true">
+    <source media="(max-width: 600px)" srcset="../images/early-access-home-mobile.jpg">
+    <img src="../images/early-access-home-desktop.jpg" width="1440" height="1000" alt="" fetchpriority="high">
+  </picture>
+  <main class="early-access-stage" id="main">
+    <article class="early-access-panel" aria-labelledby="early-access-title">
+      <div class="early-access-branding">
+        <img class="early-access-logo" src="../images/logo-black.png" width="1331" height="348" alt="PRFM">
+        <span class="early-access-fitness">FITNESS</span>
+      </div>
+      <h1 id="early-access-title"><span>GET EXCLUSIVE</span><br><span>EARLY ACCESS.</span></h1>
+      <p class="early-access-deck">Join the waitlist. Unlock PRFM Fitness.</p>
+      <p class="early-access-support">Purposeful training. Experienced coaches. Programs built for real results.</p>
+
+      <form class="waitlist-form early-access-form" action="https://formspree.io/f/xdarbjra" method="POST" data-waitlist-destination="../thank-you/">
+        <label for="early-access-name"><span>First name</span><input id="early-access-name" type="text" name="first_name" autocomplete="given-name" required></label>
+        <label for="early-access-email"><span>Email address</span><input id="early-access-email" type="email" name="email" autocomplete="email" inputmode="email" required></label>
+        <input type="hidden" name="_subject" value="New PRFM Fitness waitlist signup">
+        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="button primary" type="submit">JOIN THE WAITLIST</button>
+        <p class="prfm-waitlist-status" data-waitlist-status role="status" aria-live="polite" aria-atomic="true"></p>
+      </form>
+
+      <aside class="early-access-guide" aria-labelledby="early-access-guide-title">
+        <img src="../images/performance-mindset-cover.jpg" width="339" height="480" alt="The Performance Mindset book cover by Ben Thompson" decoding="async">
+        <div>
+          <h2 id="early-access-guide-title">YOUR FREE PERFORMANCE MINDSET GUIDE</h2>
+          <p>Join the waitlist and get instant access to The Performance Mindset, a practical guide to purposeful training.</p>
+        </div>
+      </aside>
+
+      <footer class="early-access-footer">
+        <p>We use your name and email for the requested guide and launch updates. <a href="../privacy/">Privacy policy</a></p>
+        <details class="early-access-preferences">
+          <summary>Advertising preferences</summary>
+          <label><input type="checkbox" data-advertising-consent aria-describedby="prfm-advertising-description prfm-advertising-status"> Meta advertising measurement and personalised ads</label>
+          <p id="prfm-advertising-description">Tracking is on by default unless you have opted out or your browser privacy preference disables it. Meta receives page visits and confirmed waitlist signups using cookies and device identifiers. Uncheck to opt out.</p>
+          <p id="prfm-advertising-status" data-advertising-status role="status">Advertising tracking off.</p>
+          <noscript>Advertising tracking is off because JavaScript is disabled.</noscript>
+        </details>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
