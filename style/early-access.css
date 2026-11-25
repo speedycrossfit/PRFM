@@ -7,8 +7,10 @@
 .early-access-branding { width: 125px; margin: 0 auto 26px; text-align: center; }
 .early-access-logo { display: block; width: 100%; height: auto; }
 .early-access-fitness { display: block; margin-top: 3px; padding-left: .35em; color: #74777c; font-size: .56rem; font-weight: 500; line-height: 1.4; letter-spacing: .35em; }
+.early-access-panel .early-access-eyebrow { margin-bottom: 8px; color: #565b63; font-size: .72rem; font-weight: 800; letter-spacing: .08em; line-height: 1.4; text-align: center; }
 .early-access-panel h1 { color: var(--blue); font-family: Manrope, Inter, sans-serif; font-size: clamp(2rem, 3.2vw, 2.625rem); line-height: 1.04; letter-spacing: -.015em; text-align: center; margin: 0; }
 .early-access-panel h1 span { white-space: nowrap; }
+.early-access-panel h1 .early-access-offer { font-size: 1.6em; }
 .early-access-deck { margin: 10px auto 0; max-width: 580px; font-size: 1.04rem; line-height: 1.4; font-weight: 700; text-align: center; }
 .early-access-support { margin: 6px auto 0; max-width: 600px; color: #565b63; font-size: .86rem; line-height: 1.5; text-align: center; }
 .early-access-form { display: grid; gap: 8px; margin-top: 10px; padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
@@ -36,6 +38,7 @@
   .early-access-panel { padding: 24px 24px 16px; }
   .early-access-branding { width: 112.5px; margin-bottom: 28px; }
   .early-access-panel h1 { font-size: clamp(1.5rem, 8.5vw, 2.5rem); }
+  .early-access-panel h1 .early-access-first-month { font-size: .8em; }
   .early-access-deck { font-size: 1rem; }
   .early-access-support { font-size: .82rem; }
   .early-access-guide { grid-template-columns: 65px minmax(0, 1fr); gap: 14px; }
