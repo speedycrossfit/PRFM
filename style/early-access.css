@@ -4,7 +4,7 @@
 .early-access-background::after { content: ""; position: absolute; inset: 0; background: rgba(9, 12, 18, .38); }
 .early-access-stage { display: grid; place-items: center; min-height: 100vh; min-height: 100svh; padding: 32px 24px; }
 .early-access-panel { width: min(100%, 700px); min-width: 0; padding: 20px 36px 14px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 12px; background: #f8f8f6; box-shadow: 0 28px 100px rgba(0, 0, 0, .38); }
-.early-access-branding { width: 125px; margin: 0 auto 26px; text-align: center; }
+.early-access-branding { width: 125px; margin: 0 auto 16px; text-align: center; }
 .early-access-logo { display: block; width: 100%; height: auto; }
 .early-access-fitness { display: block; margin-top: 3px; padding-left: .35em; color: #74777c; font-size: .56rem; font-weight: 500; line-height: 1.4; letter-spacing: .35em; }
 .early-access-panel .early-access-eyebrow { margin-bottom: 8px; color: #565b63; font-size: .72rem; font-weight: 800; letter-spacing: .08em; line-height: 1.4; text-align: center; }
@@ -12,15 +12,27 @@
 .early-access-panel h1 span { white-space: nowrap; }
 .early-access-panel h1 .early-access-offer { font-size: 1.6em; }
 .early-access-deck { margin: 10px auto 0; max-width: 580px; font-size: 1.04rem; line-height: 1.4; font-weight: 700; text-align: center; }
-.early-access-support { margin: 6px auto 0; max-width: 600px; color: #565b63; font-size: .86rem; line-height: 1.5; text-align: center; }
+.early-access-intro { margin: 6px auto 0; max-width: 580px; color: #565b63; font-size: .9rem; line-height: 1.5; text-align: center; }
+.early-access-benefits { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-dark); }
+.early-access-benefits h2 { margin: 0 0 10px; font-size: .78rem; line-height: 1.5; letter-spacing: .035em; }
+.early-access-benefits ul { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 18px; list-style: none; margin: 0; padding: 0; }
+.early-access-benefits li { position: relative; padding-left: 21px; color: #3f444c; font-size: .875rem; line-height: 1.5; }
+.early-access-benefits li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 6px; height: 10px; border-right: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: rotate(45deg); }
+.early-access-credibility { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; padding: 14px 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); text-align: center; }
+.early-access-credibility > div { min-width: 0; }
+.early-access-credibility strong { display: block; color: var(--blue); font: 800 clamp(1.7rem, 3vw, 2rem)/1.15 Manrope, Inter, sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.early-access-credibility span:not(.sr-only) { display: block; max-width: 150px; margin: 5px auto 0; color: #565b63; font-size: .75rem; line-height: 1.4; }
+.early-access-support { margin: 14px auto 0; max-width: 600px; color: #565b63; font-size: .86rem; line-height: 1.5; text-align: center; }
 .early-access-form { display: grid; gap: 8px; margin-top: 10px; padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .early-access-form label { display: grid; gap: 4px; }
 .early-access-form label span { font-size: .8rem; font-weight: 700; }
 .early-access-form input { background: #fff; border-color: #c9cbd0; font-size: 1rem; min-height: 48px; }
 .early-access-form .button { min-height: 50px; font-size: .86rem; letter-spacing: .02em; margin-top: 2px; }
+.early-access-obligation { margin: 0; color: #3f444c; font-size: .8rem; line-height: 1.5; text-align: center; }
+.early-access-reassurance { margin: 0; color: #62666e; font-size: .78rem; line-height: 1.5; text-align: center; }
 .early-access-guide { display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; gap: 17px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-dark); }
 .early-access-guide > img { display: block; width: 70px; height: auto; box-shadow: 3px 5px 12px rgba(0, 0, 0, .17); }
-.early-access-guide h2 { font-size: .69rem; line-height: 1.45; letter-spacing: .035em; font-weight: 800; margin: 0 0 7px; }
+.early-access-guide h2 { font-size: .85rem; line-height: 1.45; letter-spacing: 0; text-transform: none; font-weight: 800; margin: 0 0 5px; }
 .early-access-guide p { font-size: .79rem; line-height: 1.6; color: #565b63; }
 .early-access-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0 16px; margin-top: 8px; color: #62666e; font-size: .68rem; line-height: 1.65; }
 .early-access-footer a { color: var(--blue-dark); text-underline-offset: 3px; }
@@ -33,13 +45,18 @@
 .early-access-preferences input { width: 18px; height: 18px; flex: 0 0 18px; accent-color: var(--blue); }
 .early-access-preferences p + p { margin-top: 8px; }
 .early-access-page .prfm-waitlist-status { font-size: .85rem; overflow-wrap: anywhere; }
+.early-access-explore { display: flex; justify-content: center; align-items: center; min-height: 44px; margin-top: 4px; color: #62666e; font-size: .78rem; line-height: 1.5; text-align: center; text-underline-offset: 3px; }
 @media (max-width: 600px) {
   .early-access-stage { padding: 24px 16px; }
   .early-access-panel { padding: 24px 24px 16px; }
-  .early-access-branding { width: 112.5px; margin-bottom: 28px; }
+  .early-access-branding { width: 112.5px; margin-bottom: 16px; }
   .early-access-panel h1 { font-size: clamp(1.5rem, 8.5vw, 2.5rem); }
   .early-access-panel h1 .early-access-first-month { font-size: .8em; }
   .early-access-deck { font-size: 1rem; }
+  .early-access-benefits ul { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .early-access-benefits li { font-size: .9rem; }
+  .early-access-credibility { gap: 8px; }
+  .early-access-credibility strong { font-size: clamp(1.35rem, 6.75vw, 1.7rem); }
   .early-access-support { font-size: .82rem; }
   .early-access-guide { grid-template-columns: 65px minmax(0, 1fr); gap: 14px; }
   .early-access-guide > img { width: 65px; }
