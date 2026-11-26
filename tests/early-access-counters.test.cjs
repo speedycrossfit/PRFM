@@ -86,7 +86,7 @@ test('Early-access copy, benefit order, accessible final stats and reassurance f
   const ordered = ['EXCLUSIVE EARLY ACCESS', '50% OFF', 'Performance-focused training for everyday humans.',
     'Expertly designed online training programs for people who want to get stronger, fitter, and more capable.',
     'WHAT YOU GET WITH PRFM:', 'data-early-access-counters', 'Secure early launch pricing and experience the PRFM difference.',
-    'UNLOCK MY 50% OFF', 'No payment required. No obligation.', "Don't worry, we won't spam you. I hate spam just as much as you do.",
+    "Don't worry, we won't spam you. I hate spam just as much as you do.", 'UNLOCK MY 50% OFF', 'No payment required. No obligation.',
     'Plus, get your free eBook.', 'Performance Mindset. A practical guide to purposeful training.', 'Not quite ready? Explore PRFM Fitness.'];
   let previous = -1;
   for (const phrase of ordered) { const index = html.indexOf(phrase); assert.ok(index > previous, phrase); previous = index; }
